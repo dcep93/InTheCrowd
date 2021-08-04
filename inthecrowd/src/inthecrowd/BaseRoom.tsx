@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import firebase from "./firebase";
 import Lineup, { DayType } from "./Lineup";
-import SlotSelectModal from "./SlotSelectModal";
 
 const MAX_VOTES = 2;
 
@@ -207,12 +207,14 @@ function GetContents(props: {
       >
         {props.contents}
       </div>
-      <SlotSelectModal
-        show={show}
-        onHide={() => update(false)}
-        shareLocation={props.shareLocation}
-        modalContents={props.modalContents}
-      />
+      <div onClick={(e) => e.stopPropagation()}>
+        <Modal show={show} onHide={() => update(false)}>
+          <Modal.Body>{props.modalContents}</Modal.Body>
+          <Modal.Footer>
+            <Button onClick={props.shareLocation}>Share Location</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </>
   );
 }
