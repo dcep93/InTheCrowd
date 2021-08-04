@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-cd inthecrowd
 export GOOGLE_APPLICATION_CREDENTIALS="gac.json"
 echo "$1" > "$GOOGLE_APPLICATION_CREDENTIALS"
 npm install -g firebase-tools
