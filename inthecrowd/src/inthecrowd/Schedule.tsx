@@ -6,7 +6,11 @@ import css from "./index.module.css";
 import { randomKey } from "./Main";
 import { createRoom } from "./NewRoom";
 
-export type ScheduleType = { days: DayType[]; name: string; updated: number };
+export type ScheduleType = {
+  days: DayType[];
+  name: string;
+  updated: number;
+};
 class Schedule extends React.Component<
   { scheduleId: string; userId: string },
   ScheduleType

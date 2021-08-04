@@ -50,16 +50,18 @@ function Day(props: { i: number; day: DayType } & DayProps) {
           src={props.day.img}
           onClick={(e) => props.imgClick(props.i, e)}
         />
-        {Object.entries(props.day.slots || []).map(([key, slotCoords]) => (
-          <div key={key} onClick={() => props.slotClick(props.i, key)}>
-            <Slot
-              slotCoords={slotCoords}
-              getOpacity={() => props.getOpacity(key)}
-              getSelectedColor={() => props.getSelectedColor(key)}
-              getContents={() => props.getContents(key)}
-            />
-          </div>
-        ))}
+        <div>
+          {Object.entries(props.day.slots || []).map(([key, slotCoords]) => (
+            <div key={key} onClick={() => props.slotClick(props.i, key)}>
+              <Slot
+                slotCoords={slotCoords}
+                getOpacity={() => props.getOpacity(key)}
+                getSelectedColor={() => props.getSelectedColor(key)}
+                getContents={() => props.getContents(key)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
