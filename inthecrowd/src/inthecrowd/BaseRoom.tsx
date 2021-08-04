@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import firebase from "./firebase";
 import Lineup, { DayType } from "./Lineup";
-import {} from "./Slot";
 import SlotSelectModal from "./SlotSelectModal";
 
 const MAX_VOTES = 2;
