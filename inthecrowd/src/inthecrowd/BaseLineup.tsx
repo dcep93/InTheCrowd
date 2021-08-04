@@ -35,6 +35,7 @@ function Day(props: { i: number; day: DayType } & DayProps) {
   return (
     <div>
       <div
+        className={css.hideDay}
         onClick={() => {
           update(!hidden);
           resetZoom();

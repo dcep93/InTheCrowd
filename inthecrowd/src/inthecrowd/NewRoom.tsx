@@ -1,4 +1,5 @@
 import React, { RefObject } from "react";
+import { DayType } from "./BaseLineup";
 import firebase from "./firebase";
 import css from "./index.module.css";
 import { randomKey } from "./Main";
@@ -75,20 +76,34 @@ class NewRoom extends React.Component<
 
   createRoom() {
     const scheduleId = this.selectRef.current!.value;
-    const room = {
-      days: this.state[scheduleId].days || [],
-      name: this.inputRef.current!.value,
-      creator: this.props.userId,
+    createRoom(
       scheduleId,
-    };
-    const roomId = randomKey();
-    firebase.set(
-      `/room/${roomId}`,
-      room,
-      `${this.props.userId} create room ${new Date().toLocaleString()}`
+      this.inputRef.current!.value,
+      this.props.userId,
+      this.state[scheduleId].days || []
     );
-    window.location.href = `/${roomId}`;
   }
+}
+
+export function createRoom(
+  scheduleId: string,
+  name: string,
+  creator: string,
+  days: DayType[]
+) {
+  const room = {
+    name,
+    days,
+    creator,
+    scheduleId,
+  };
+  const roomId = randomKey();
+  firebase.set(
+    `/room/${roomId}`,
+    room,
+    `${creator} create room ${new Date().toLocaleString()}`
+  );
+  window.location.href = `/${roomId}`;
 }
 
 export default NewRoom;

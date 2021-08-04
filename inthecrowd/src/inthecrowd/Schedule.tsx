@@ -1,8 +1,10 @@
 import React, { RefObject } from "react";
+import { Button } from "react-bootstrap";
 import BaseLineup, { DayType } from "./BaseLineup";
 import firebase from "./firebase";
 import css from "./index.module.css";
 import { randomKey } from "./Main";
+import { createRoom } from "./NewRoom";
 
 export type ScheduleType = { days: DayType[]; name: string; updated: number };
 class Schedule extends React.Component<
@@ -46,6 +48,18 @@ class Schedule extends React.Component<
               }}
             />
             <div>#{this.props.scheduleId}</div>
+            <Button
+              onClick={() =>
+                createRoom(
+                  this.props.scheduleId,
+                  "InTheCrowd",
+                  this.props.userId,
+                  this.state.days || []
+                )
+              }
+            >
+              Create Room
+            </Button>
           </div>
           <div className={css.bubble}>
             <h3>Day Image URLs</h3>
