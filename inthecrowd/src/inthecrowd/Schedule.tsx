@@ -83,7 +83,7 @@ class Schedule extends React.Component<
           days={this.state.days || []}
           imgClick={this.imgClick.bind(this)}
           slotClick={this.slotClick.bind(this)}
-          getOpacity={() => 0.2}
+          getOpacity={() => 0.4}
           getSelectedColor={() => "black"}
           getContents={() => "*"}
         />
