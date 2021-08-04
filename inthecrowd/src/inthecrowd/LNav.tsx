@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import recorded_sha from "./recorded_sha";
 
 class LNav extends React.Component<{
   logout: () => void;
@@ -9,7 +10,7 @@ class LNav extends React.Component<{
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href={"/"} title={"v0.0.3"}>
+          <Navbar.Brand href={"/"} title={recorded_sha}>
             InTheCrowd
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
