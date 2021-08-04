@@ -50,7 +50,7 @@ class NewRoom extends React.Component<
               />
               <button
                 onClick={this.createRoom.bind(this)}
-                disabled={!this.selectRef.current?.value}
+                disabled={this.selectRef.current?.value === ""}
               >
                 Create Room
               </button>
