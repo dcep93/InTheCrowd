@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import BaseLineup, { DayType } from "./BaseLineup";
 import firebase from "./firebase";
 import css from "./index.module.css";
+import LNav from "./LNav";
 import { randomKey } from "./Main";
 import { createRoom } from "./NewRoom";
 
@@ -39,74 +40,77 @@ class Schedule extends React.Component<
     if (!this.state) return "loading...";
     document.title = this.state.name || "schedule";
     return (
-      <div>
-        <div className={css.flex}>
-          <div className={css.bubble}>
-            <h3>Schedule</h3>
-            <TextEditor
-              defaultValue={this.state.name || "schedule"}
-              submit={(name) => {
-                Object.assign(this.state as any, { name });
-                this.updateFirebase();
-                return false;
-              }}
-            />
-            <div>#{this.props.scheduleId}</div>
-            <Button
-              onClick={() =>
-                createRoom(
-                  this.props.scheduleId,
-                  this.state.name || "schedule",
-                  this.props.userId,
-                  this.state.days || []
-                )
-              }
-            >
-              Create Room
-            </Button>
+      <>
+        <LNav userId={this.props.userId} />
+        <div>
+          <div className={css.flex}>
+            <div className={css.bubble}>
+              <h3>Schedule</h3>
+              <TextEditor
+                defaultValue={this.state.name || "schedule"}
+                submit={(name) => {
+                  Object.assign(this.state as any, { name });
+                  this.updateFirebase();
+                  return false;
+                }}
+              />
+              <div>#{this.props.scheduleId}</div>
+              <Button
+                onClick={() =>
+                  createRoom(
+                    this.props.scheduleId,
+                    this.state.name || "schedule",
+                    this.props.userId,
+                    this.state.days || []
+                  )
+                }
+              >
+                Create Room
+              </Button>
+            </div>
+            <div className={css.bubble}>
+              <h3>Day Image URLs</h3>
+              {(this.state.days || []).map((day, i) => (
+                <div key={i} className={css.courier}>
+                  {i + 1}{" "}
+                  <TextEditor
+                    defaultValue={day.img}
+                    submit={(update) => {
+                      if (!update) {
+                        this.state.days.splice(i, 1);
+                      } else {
+                        day.img = update;
+                      }
+                      this.updateFirebase();
+                      return true;
+                    }}
+                  />
+                </div>
+              ))}
+              <TextEditor
+                defaultValue={""}
+                submit={(img) => {
+                  if (!img) return true;
+                  if (!this.state.days)
+                    Object.assign(this.state as any, { days: [] });
+                  this.state.days.push({ img, slots: {}, width: "100%" });
+                  this.updateFirebase();
+                  return true;
+                }}
+              />
+            </div>
           </div>
-          <div className={css.bubble}>
-            <h3>Day Image URLs</h3>
-            {(this.state.days || []).map((day, i) => (
-              <div key={i} className={css.courier}>
-                {i + 1}{" "}
-                <TextEditor
-                  defaultValue={day.img}
-                  submit={(update) => {
-                    if (!update) {
-                      this.state.days.splice(i, 1);
-                    } else {
-                      day.img = update;
-                    }
-                    this.updateFirebase();
-                    return true;
-                  }}
-                />
-              </div>
-            ))}
-            <TextEditor
-              defaultValue={""}
-              submit={(img) => {
-                if (!img) return true;
-                if (!this.state.days)
-                  Object.assign(this.state as any, { days: [] });
-                this.state.days.push({ img, slots: {}, width: "100%" });
-                this.updateFirebase();
-                return true;
-              }}
-            />
-          </div>
+          <BaseLineup
+            userId={this.props.userId}
+            days={this.state.days || []}
+            imgClick={this.imgClick.bind(this)}
+            slotClick={this.slotClick.bind(this)}
+            getOpacity={() => 0.4}
+            getSelectedColor={() => "black"}
+            getContents={() => "*"}
+          />
         </div>
-        <BaseLineup
-          userId={this.props.userId}
-          days={this.state.days || []}
-          imgClick={this.imgClick.bind(this)}
-          slotClick={this.slotClick.bind(this)}
-          getOpacity={() => 0.4}
-          getSelectedColor={() => "black"}
-          getContents={() => "*"}
-        />
-      </div>
+      </>
     );
   }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Lineup from "./Lineup";
 import LNav from "./LNav";
@@ -22,7 +23,6 @@ function LoggedInMain() {
   return (
     <Router>
       <div>
-        <LNav userId={userId} logout={logout} />
         <Switch>
           <Route exact path={`/`} render={() => <NewRoom userId={userId} />} />
           <Route
@@ -38,7 +38,22 @@ function LoggedInMain() {
           <Route
             path={`/room/:roomId`}
             render={(props) => (
-              <Lineup roomId={props.match.params.roomId} userId={userId} />
+              <>
+                <LNav
+                  userId={userId}
+                  extra={
+                    <Nav.Link
+                      onClick={() =>
+                        (window.location.href = `/room/${props.match.params.roomId}/user/${userId}`)
+                      }
+                    >
+                      Share
+                    </Nav.Link>
+                  }
+                />
+
+                <Lineup roomId={props.match.params.roomId} userId={userId} />
+              </>
             )}
           />
           <Route path={`*`} render={() => "404 not found"} />
@@ -54,7 +69,7 @@ function login() {
   window.location.reload();
 }
 
-function logout() {
+export function logout() {
   localStorage.setItem(STORAGE_KEY, "{}");
   window.location.reload();
 }

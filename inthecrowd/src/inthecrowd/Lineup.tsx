@@ -48,15 +48,17 @@ class Lineup extends React.Component<
     if (!this.state) return "loading...";
     document.title = this.state.name;
     return (
-      <BaseLineup
-        userId={this.props.userId}
-        days={this.state.days}
-        imgClick={() => null}
-        slotClick={this.slotClick.bind(this)}
-        getOpacity={this.getOpacity.bind(this)}
-        getSelectedColor={this.getSelectedColor.bind(this)}
-        getContents={this.getContents.bind(this)}
-      />
+      <>
+        <BaseLineup
+          userId={this.props.userId}
+          days={this.state.days}
+          imgClick={() => null}
+          slotClick={this.slotClick.bind(this)}
+          getOpacity={this.getOpacity.bind(this)}
+          getSelectedColor={this.getSelectedColor.bind(this)}
+          getContents={this.getContents.bind(this)}
+        />
+      </>
     );
   }
 

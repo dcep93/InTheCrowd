@@ -21,15 +21,23 @@ function Main() {
             <>
               <LNav
                 userId={props.match.params.userId}
-                logout={() => null}
                 extra={
-                  <Nav.Link
-                    onClick={() =>
-                      window.open("https://screenshot.guru", "_blank")
-                    }
-                  >
-                    Screenshot
-                  </Nav.Link>
+                  <>
+                    <Nav.Link
+                      onClick={() =>
+                        (window.location.href = `/room/${props.match.params.roomId}`)
+                      }
+                    >
+                      Room
+                    </Nav.Link>
+                    <Nav.Link
+                      onClick={() =>
+                        window.open("https://screenshot.guru", "_blank")
+                      }
+                    >
+                      Screenshot
+                    </Nav.Link>
+                  </>
                 }
               />
               <Lineup

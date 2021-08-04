@@ -1,12 +1,9 @@
 import React, { ReactElement } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { logout } from "./LoggedInMain";
 import recorded_sha from "./recorded_sha";
 
-function LNav(props: {
-  logout: () => void;
-  userId: string;
-  extra?: ReactElement;
-}) {
+function LNav(props: { userId: string; extra?: ReactElement }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -17,7 +14,7 @@ function LNav(props: {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={help}>Help</Nav.Link>
-            <Nav.Link onClick={props.logout}>Logout</Nav.Link>
+            <Nav.Link onClick={logout}>Logout</Nav.Link>
             {props.extra}
             <Navbar.Brand>{props.userId}</Navbar.Brand>
           </Nav>
