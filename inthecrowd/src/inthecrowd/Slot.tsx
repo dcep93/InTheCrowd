@@ -2,42 +2,35 @@ import React from "react";
 import css from "./index.module.css";
 
 export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
-export type UserSlotType = {
-  selected: number;
-  location?: { lat: string; long: string; timestamp: number };
-};
-export type UserDictSlotType = { [userId: string]: UserSlotType };
-class Slot extends React.Component<{
+function Slot(props: {
   slotCoords: SlotCoordsType;
   getOpacity: () => number;
   getSelectedColor: () => string;
   getContents: () => any;
-}> {
-  render() {
-    return (
-      <>
+}) {
+  return (
+    <>
+      <div
+        className={css.slotWrapper}
+        style={{
+          left: props.slotCoords.x1,
+          top: props.slotCoords.y1,
+          width: props.slotCoords.x2 - props.slotCoords.x1,
+          height: props.slotCoords.y2 - props.slotCoords.y1,
+        }}
+      >
         <div
-          className={css.slotWrapper}
+          className={css.slot}
           style={{
-            left: this.props.slotCoords.x1,
-            top: this.props.slotCoords.y1,
-            width: this.props.slotCoords.x2 - this.props.slotCoords.x1,
-            height: this.props.slotCoords.y2 - this.props.slotCoords.y1,
+            opacity: props.getOpacity(),
+            backgroundColor: props.getSelectedColor(),
           }}
-        >
-          <div
-            className={css.slot}
-            style={{
-              opacity: this.props.getOpacity(),
-              backgroundColor: this.props.getSelectedColor(),
-            }}
-          ></div>
+        ></div>
 
-          <div className={css.slotCount}>{this.props.getContents()}</div>
-        </div>
-      </>
-    );
-  }
+        <div className={css.slotCount}>{props.getContents()}</div>
+      </div>
+    </>
+  );
 }
 
 export default Slot;

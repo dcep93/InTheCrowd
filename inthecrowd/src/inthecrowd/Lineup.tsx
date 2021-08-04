@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import BaseLineup, { DayType } from "./BaseLineup";
 import firebase from "./firebase";
-import { UserDictSlotType, UserSlotType } from "./Slot";
+import {} from "./Slot";
 import SlotSelectModal from "./SlotSelectModal";
 
 const MAX_VOTES = 2;
@@ -9,6 +9,11 @@ const MAX_VOTES = 2;
 type UserType = {
   [slotKey: string]: UserSlotType;
 };
+type UserSlotType = {
+  selected: number;
+  location?: { lat: string; long: string; timestamp: number };
+};
+type UserDictSlotType = { [userId: string]: UserSlotType };
 
 class Lineup extends React.Component<
   { roomId: string; userId: string },
