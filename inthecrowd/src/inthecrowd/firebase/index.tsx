@@ -82,7 +82,7 @@ function connectMain(setState: (main: MainType) => void) {
 }
 
 function setRoomSchedule(roomId: string, schedule: ScheduleType) {
-  setWrapper(`/rooms/${roomId}/schedules`, schedule);
+  setWrapper(`/rooms/${roomId}/schedule`, schedule);
 }
 
 function setRoomName(roomId: string, name: string) {
