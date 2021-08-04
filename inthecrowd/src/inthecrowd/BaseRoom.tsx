@@ -34,13 +34,12 @@ class BaseRoom extends React.Component<
     return `/room/${this.props.roomId}`;
   }
 
-  updateFirebase() {
+  updateMyFirebase() {
+    const path = `${this.getFirebasePath()}/users/${this.props.userId}`;
     firebase.set(
-      this.getFirebasePath(),
-      this.state,
-      `${
-        this.props.userId
-      } ${this.getFirebasePath()} ${new Date().toLocaleString()}`
+      path,
+      this.getMe(),
+      `${this.props.userId} ${path} ${new Date().toLocaleString()}`
     );
   }
 
@@ -67,7 +66,7 @@ class BaseRoom extends React.Component<
     const me = this.getMe();
     if (!me[slotKey]) me[slotKey] = { selected: 0 };
     me[slotKey].selected = (me[slotKey].selected + 1) % (MAX_VOTES + 1);
-    this.updateFirebase();
+    this.updateMyFirebase();
   }
 
   getUserDictSlot(key: string): UserDictSlotType {
@@ -101,7 +100,7 @@ class BaseRoom extends React.Component<
           timestamp: position.timestamp,
         },
       });
-      this.updateFirebase();
+      this.updateMyFirebase();
     });
   }
 
