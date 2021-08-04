@@ -9,7 +9,6 @@ class NewRoom extends React.Component<
   { [scheduleId: string]: ScheduleType }
 > {
   componentDidMount() {
-    document.title = "InTheCrowd";
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }
@@ -32,6 +31,7 @@ class NewRoom extends React.Component<
   inputRef: RefObject<HTMLInputElement> = React.createRef();
   render() {
     if (!this.state) return "loading...";
+    document.title = "InTheCrowd";
     return (
       <div className={css.flex}>
         <div className={css.bubble}>

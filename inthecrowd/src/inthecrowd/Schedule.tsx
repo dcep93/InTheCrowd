@@ -10,7 +10,6 @@ class Schedule extends React.Component<
   ScheduleType
 > {
   componentDidMount() {
-    document.title = this.state.name;
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }
@@ -32,6 +31,7 @@ class Schedule extends React.Component<
   inputRef: RefObject<HTMLInputElement> = React.createRef();
   render() {
     if (!this.state) return "loading...";
+    document.title = this.state.name;
     return (
       <div>
         <div className={css.flex}>

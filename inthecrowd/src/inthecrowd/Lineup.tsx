@@ -26,7 +26,6 @@ class Lineup extends React.Component<
   }
 > {
   componentDidMount() {
-    document.title = this.state.name;
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }
@@ -47,6 +46,7 @@ class Lineup extends React.Component<
 
   render() {
     if (!this.state) return "loading...";
+    document.title = this.state.name;
     return (
       <BaseLineup
         userId={this.props.userId}
