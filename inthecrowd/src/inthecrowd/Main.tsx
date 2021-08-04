@@ -7,7 +7,7 @@ import NewRoom from "./NewRoom";
 import Schedule from "./Schedule";
 import Usage from "./Usage";
 
-const STORAGE_KEY = "lineup/0.1.1";
+const STORAGE_KEY = "inthecrowd/0.2.1";
 
 export function randomKey() {
   return Math.floor(Math.random() * 100000000);
