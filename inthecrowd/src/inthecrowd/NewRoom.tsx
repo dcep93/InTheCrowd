@@ -3,7 +3,7 @@ import firebase from "./firebase";
 import css from "./index.module.css";
 import { DayType } from "./Lineup";
 import LNav from "./LNav";
-import { logout, randomKey } from "./Main";
+import { randomKey } from "./Main";
 import { ScheduleType } from "./Schedule";
 
 class NewRoom extends React.Component<
@@ -36,7 +36,7 @@ class NewRoom extends React.Component<
     document.title = "InTheCrowd";
     return (
       <>
-        <LNav userId={this.props.userId} logout={logout} />
+        <LNav />
         <div className={css.flex}>
           <div className={css.bubble}>
             <select ref={this.selectRef} onChange={() => this.forceUpdate()}>

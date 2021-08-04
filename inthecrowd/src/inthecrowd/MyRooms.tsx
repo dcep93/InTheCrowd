@@ -3,34 +3,28 @@ import firebase from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 
-class Usage extends React.Component {
+class MyRooms extends React.Component<{ userId: string }, any> {
   componentDidMount() {
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }
 
   getFirebasePath() {
-    return `/usage`;
+    return `/`;
   }
 
   render() {
     if (!this.state) return null;
-    document.title = "Usage";
+    document.title = "MyRooms";
     return (
       <>
         <LNav />
         <div className={[css.bubble, css.courier].join(" ")}>
-          {Object.values(this.state)
-            .reverse()
-            .map((s, i) => (
-              <div key={i}>
-                {i} {s as string}
-              </div>
-            ))}
+          {JSON.stringify(this.state)}
         </div>
       </>
     );
   }
 }
 
-export default Usage;
+export default MyRooms;
