@@ -3,63 +3,34 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Lineup from "./Lineup";
 import LNav from "./LNav";
-import NewRoom from "./NewRoom";
-import Schedule from "./Schedule";
-import Usage from "./Usage";
-
-const STORAGE_KEY = "inthecrowd/0.2.1";
+import LoggedInMain from "./LoggedInMain";
 
 export function randomKey() {
   return Math.floor(Math.random() * 100000000);
 }
 
 function Main() {
-  const userId = getUserId();
-  if (!userId) {
-    login();
-    return null;
-  }
-
   return (
     <Router>
-      <div>
-        <LNav userId={userId} logout={logout} />
-        <Switch>
-          <Route exact path={`/`} render={() => <NewRoom userId={userId} />} />
-          <Route
-            path={`/schedule/:scheduleId`}
-            render={(props) => (
-              <Schedule
-                scheduleId={props.match.params.scheduleId}
-                userId={userId}
+      <Switch>
+        <Route
+          exact
+          path={`/room/:roomId/user/:userId`}
+          render={(props) => (
+            <>
+              <LNav userId={props.match.params.userId} logout={() => null} />
+              <Lineup
+                roomId={props.match.params.roomId}
+                userId={props.match.params.userId}
+                readOnly={true}
               />
-            )}
-          />
-          <Route path={`/usage`} render={() => <Usage />} />
-          <Route
-            path={`/:roomId`}
-            render={(props) => (
-              <Lineup roomId={props.match.params.roomId} userId={userId} />
-            )}
-          />
-        </Switch>
-      </div>
+            </>
+          )}
+        />
+        <Route path={`*`} render={() => <LoggedInMain />} />
+      </Switch>
     </Router>
   );
-}
-
-function login() {
-  const userId = prompt("enter your name");
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ userId }));
-}
-
-function logout() {
-  localStorage.setItem(STORAGE_KEY, "{}");
-  window.location.reload();
-}
-
-function getUserId(): string {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}").userId;
 }
 
 export default Main;

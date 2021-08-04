@@ -16,7 +16,7 @@ type UserSlotType = {
 type UserDictSlotType = { [userId: string]: UserSlotType };
 
 class Lineup extends React.Component<
-  { roomId: string; userId: string },
+  { roomId: string; userId: string; readOnly?: boolean },
   {
     users: { [userId: string]: UserType };
     days: DayType[];
@@ -61,6 +61,7 @@ class Lineup extends React.Component<
   }
 
   slotClick(dayIndex: number, slotKey: string) {
+    if (this.props.readOnly) return;
     const me = this.getMe();
     if (!me[slotKey]) me[slotKey] = { selected: 0 };
     me[slotKey].selected = (me[slotKey].selected + 1) % (MAX_VOTES + 1);
@@ -87,6 +88,7 @@ class Lineup extends React.Component<
   }
 
   shareLocation(slotKey: string) {
+    if (this.props.readOnly) return;
     if (!navigator.geolocation) return alert("cannot get geolocation");
     const me = this.getMe();
     navigator.geolocation.getCurrentPosition((position) => {

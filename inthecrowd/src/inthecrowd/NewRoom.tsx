@@ -103,7 +103,7 @@ export function createRoom(
     room,
     `${creator} create room ${new Date().toLocaleString()}`
   );
-  window.location.href = `/${roomId}`;
+  window.location.href = `/room/${roomId}`;
 }
 
 export default NewRoom;
