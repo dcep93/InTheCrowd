@@ -1,8 +1,8 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
-import BaseLineup, { DayType } from "./BaseLineup";
 import firebase from "./firebase";
 import css from "./index.module.css";
+import Lineup, { DayType } from "./Lineup";
 import LNav from "./LNav";
 import { randomKey } from "./Main";
 import { createRoom } from "./NewRoom";
@@ -100,7 +100,7 @@ class Schedule extends React.Component<
               />
             </div>
           </div>
-          <BaseLineup
+          <Lineup
             userId={this.props.userId}
             days={this.state.days || []}
             imgClick={this.imgClick.bind(this)}

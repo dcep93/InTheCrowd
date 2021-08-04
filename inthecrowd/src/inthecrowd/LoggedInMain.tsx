@@ -1,9 +1,9 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Lineup from "./Lineup";
 import LNav from "./LNav";
 import NewRoom from "./NewRoom";
+import Room from "./Room";
 import Schedule from "./Schedule";
 import Usage from "./Usage";
 
@@ -52,7 +52,7 @@ function LoggedInMain() {
                   }
                 />
 
-                <Lineup roomId={props.match.params.roomId} userId={userId} />
+                <Room roomId={props.match.params.roomId} userId={userId} />
               </>
             )}
           />

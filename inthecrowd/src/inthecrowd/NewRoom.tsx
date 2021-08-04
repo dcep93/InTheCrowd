@@ -1,7 +1,7 @@
 import React, { RefObject } from "react";
-import { DayType } from "./BaseLineup";
 import firebase from "./firebase";
 import css from "./index.module.css";
+import { DayType } from "./Lineup";
 import LNav from "./LNav";
 import { randomKey } from "./Main";
 import { ScheduleType } from "./Schedule";

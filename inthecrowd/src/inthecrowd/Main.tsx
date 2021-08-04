@@ -1,10 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
-import { Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Lineup from "./Lineup";
-import LNav from "./LNav";
 import LoggedInMain from "./LoggedInMain";
+import Shared from "./Shared";
 
 export function randomKey() {
   return Math.floor(Math.random() * 100000000);
@@ -18,34 +16,10 @@ function Main() {
           exact
           path={`/room/:roomId/user/:userId`}
           render={(props) => (
-            <>
-              <LNav
-                userId={props.match.params.userId}
-                extra={
-                  <>
-                    <Nav.Link
-                      onClick={() =>
-                        (window.location.href = `/room/${props.match.params.roomId}`)
-                      }
-                    >
-                      Room
-                    </Nav.Link>
-                    <Nav.Link
-                      onClick={() =>
-                        window.open("https://screenshot.guru", "_blank")
-                      }
-                    >
-                      Screenshot
-                    </Nav.Link>
-                  </>
-                }
-              />
-              <Lineup
-                roomId={props.match.params.roomId}
-                userId={props.match.params.userId}
-                readOnly={true}
-              />
-            </>
+            <Shared
+              roomId={props.match.params.roomId}
+              userId={props.match.params.userId}
+            />
           )}
         />
         <Route path={`*`} render={() => <LoggedInMain />} />
