@@ -54,7 +54,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                     defaultValue={day.img}
                     submit={(update) => {
                       if (!update) {
-                        this.state.days.splice(i, 1);
+                        (this.state.days || []).splice(i, 1);
                       } else {
                         day.img = update;
                       }
@@ -70,7 +70,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                   if (!img) return true;
                   if (!this.state.days)
                     Object.assign(this.state as ScheduleType, { days: [] });
-                  this.state.days.push({ img, slots: {}, width: "100%" });
+                  this.state.days!.push({ img, slots: {}, width: "100%" });
                   this.updateFirebase();
                   return true;
                 }}
@@ -102,7 +102,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
       this.badState = { dayIndex, slotCorner };
       return;
     }
-    const day = this.state.days[dayIndex];
+    const day = this.state.days![dayIndex];
     if (!day.slots) day.slots = {};
     day.slots[randomKey()] = {
       x1: this.badState.slotCorner.x,
@@ -116,9 +116,9 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   }
 
   slotClick(dayIndex: number, slotKey: string) {
-    const day = this.state.days[dayIndex];
+    const day = this.state.days![dayIndex];
     const slots = day.slots;
-    delete slots[slotKey];
+    delete slots![slotKey];
     this.updateFirebase();
   }
 }

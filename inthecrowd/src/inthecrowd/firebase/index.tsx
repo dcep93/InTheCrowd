@@ -7,7 +7,7 @@ export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
 export type DayType = {
   img: string;
   width: string;
-  slots: { [slotKey: string]: SlotCoordsType };
+  slots?: { [slotKey: string]: SlotCoordsType };
 };
 
 export type UserType = {
@@ -24,15 +24,15 @@ export type RoomType = {
   name: string;
   creator: string;
   schedule: ScheduleType;
-  users: { [userId: string]: UserType };
-  days: DayType[];
+  users?: { [userId: string]: UserType };
+  days?: DayType[];
 };
 
 export type ScheduleType = {
   id: string;
   name: string;
   creator: string;
-  days: DayType[];
+  days?: DayType[];
   updated: number;
 };
 
@@ -44,8 +44,8 @@ export type UsageType = {
 };
 
 export type MainType = {
-  room: { [roomId: string]: RoomType };
-  schedule: { [scheduleId: string]: ScheduleType };
+  rooms?: { [roomId: string]: RoomType };
+  schedules?: { [scheduleId: string]: ScheduleType };
 };
 
 declare global {
@@ -70,11 +70,11 @@ function setWrapper(path: string, obj: any, message: string = "") {
 }
 
 function connectRoom(roomId: string, setState: (room: RoomType) => void) {
-  firebase._connect(`/room/${roomId}`, (val) => setState(val || {}));
+  firebase._connect(`/rooms/${roomId}`, (val) => setState(val || {}));
 }
 
 function updateRoomUser(roomId: string, userId: string, user: UserType) {
-  setWrapper(`/room/${roomId}/user/${userId}`, user);
+  setWrapper(`/rooms/${roomId}/users/${userId}`, user);
 }
 
 function connectMain(setState: (main: MainType) => void) {
@@ -82,32 +82,32 @@ function connectMain(setState: (main: MainType) => void) {
 }
 
 function setRoomSchedule(roomId: string, schedule: ScheduleType) {
-  setWrapper(`/room/${roomId}/schedule`, schedule);
+  setWrapper(`/rooms/${roomId}/schedules`, schedule);
 }
 
 function setRoomName(roomId: string, name: string) {
-  setWrapper(`/room/${roomId}/name`, name);
+  setWrapper(`/rooms/${roomId}/name`, name);
 }
 
 function connectSchedules(
   setState: (schedules: { [scheduleId: string]: ScheduleType }) => void
 ) {
-  firebase._connect("/schedule", (val) => setState(val || {}));
+  firebase._connect("/schedules", (val) => setState(val || {}));
 }
 
 function createRoom(roomId: string, room: RoomType) {
-  setWrapper(`/room/${roomId}`, room, `create`);
+  setWrapper(`/rooms/${roomId}`, room, `create`);
 }
 
 function connectSchedule(
   scheduleId: string,
   setState: (state: ScheduleType) => void
 ) {
-  firebase._connect(`/schedule/${scheduleId}`, (val) => setState(val || {}));
+  firebase._connect(`/schedules/${scheduleId}`, (val) => setState(val || {}));
 }
 
 function updateSchedule(scheduleId: string, schedule: ScheduleType) {
-  setWrapper(`/schedule/${scheduleId}`, schedule);
+  setWrapper(`/schedules/${scheduleId}`, schedule);
 }
 
 function connectUsage(setState: (usage: { [key: string]: UsageType }) => void) {

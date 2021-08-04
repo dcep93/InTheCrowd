@@ -24,7 +24,7 @@ class BaseRoom extends React.Component<
       <>
         <Lineup
           userId={this.props.userId}
-          days={this.state.days}
+          days={this.state.days || []}
           dayProps={{
             imgClick: () => null,
             slotClick: this.slotClick.bind(this),

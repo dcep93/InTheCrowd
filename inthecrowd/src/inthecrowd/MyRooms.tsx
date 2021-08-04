@@ -17,7 +17,7 @@ class MyRooms extends React.Component<{}, MainType> {
     return (
       <>
         <LNav />
-        {Object.entries(this.state.room)
+        {Object.entries(this.state.rooms || {})
           .filter(
             ([roomId, room]) =>
               room.creator === userId || (room.users || {})[userId]
@@ -35,16 +35,16 @@ class MyRooms extends React.Component<{}, MainType> {
                 />
               </div>
               <div className={css.bubble}>
-                <h5>{this.state.room.schedule.name}</h5>
+                <h5>{room.schedule.name}</h5>
                 <Button
                   disabled={
-                    this.state.schedule[room.schedule.id].updated ===
+                    (this.state.schedules || {})[room.schedule.id].updated ===
                     room.schedule.updated
                   }
                   onClick={() =>
                     firebase.setRoomSchedule(
                       roomId,
-                      this.state.schedule[room.schedule.id]
+                      (this.state.schedules || {})[room.schedule.id]
                     )
                   }
                 >

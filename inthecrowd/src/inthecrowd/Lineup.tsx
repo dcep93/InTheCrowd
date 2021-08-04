@@ -18,7 +18,7 @@ function Lineup(props: {
   return (
     <div>
       <div className={css.imgs}>
-        {(props.days || []).map((day, i) => (
+        {props.days.map((day, i) => (
           <Day key={i} dayProps={props.dayProps} i={i} day={day} />
         ))}
       </div>
@@ -48,7 +48,7 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
           style={{ width: props.day.width }}
         />
         <div>
-          {Object.entries(props.day.slots || []).map(([key, slotCoords]) => (
+          {Object.entries(props.day.slots || {}).map(([key, slotCoords]) => (
             <div
               key={key}
               onClick={() => props.dayProps.slotClick(props.i, key)}
