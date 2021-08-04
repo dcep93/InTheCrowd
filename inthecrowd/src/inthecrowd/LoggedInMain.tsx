@@ -1,7 +1,5 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import LNav from "./LNav";
 import NewRoom from "./NewRoom";
 import Room from "./Room";
 import Schedule from "./Schedule";
@@ -38,22 +36,7 @@ function LoggedInMain() {
           <Route
             path={`/room/:roomId`}
             render={(props) => (
-              <>
-                <LNav
-                  userId={userId}
-                  extra={
-                    <Nav.Link
-                      onClick={() =>
-                        (window.location.href = `/room/${props.match.params.roomId}/user/${userId}`)
-                      }
-                    >
-                      Share
-                    </Nav.Link>
-                  }
-                />
-
-                <Room roomId={props.match.params.roomId} userId={userId} />
-              </>
+              <Room userId={userId} roomId={props.match.params.roomId} />
             )}
           />
           <Route path={`*`} render={() => "404 not found"} />
