@@ -2,8 +2,9 @@
 
 set -euo pipefail
 
-cd inthecrowd
+cd inthecrowd/build
 export GOOGLE_APPLICATION_CREDENTIALS="gac.json"
 echo "$1" > "$GOOGLE_APPLICATION_CREDENTIALS"
 gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
-gcloud --project inthecrowd app deploy
+firebase init
+firebase deploy
