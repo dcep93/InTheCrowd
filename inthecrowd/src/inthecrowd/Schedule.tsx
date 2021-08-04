@@ -4,7 +4,7 @@ import firebase from "./firebase";
 import css from "./index.module.css";
 import Lineup, { DayType } from "./Lineup";
 import LNav from "./LNav";
-import { randomKey } from "./Main";
+import { logout, randomKey } from "./Main";
 import { createRoom } from "./NewRoom";
 
 export type ScheduleType = {
@@ -41,7 +41,7 @@ class Schedule extends React.Component<
     document.title = this.state.name || "schedule";
     return (
       <>
-        <LNav userId={this.props.userId} />
+        <LNav userId={this.props.userId} logout={logout} />
         <div>
           <div className={css.flex}>
             <div className={css.bubble}>

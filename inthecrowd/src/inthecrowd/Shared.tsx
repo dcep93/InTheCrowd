@@ -13,6 +13,7 @@ function Shared(props: { userId: string; roomId: string }) {
     <>
       <LNav
         userId={props.userId}
+        logout={() => null}
         extra={
           <>
             <Nav.Link

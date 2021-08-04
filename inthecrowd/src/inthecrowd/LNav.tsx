@@ -1,9 +1,13 @@
-import React, { ReactElement } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { logout } from "./LoggedInMain";
+import React, { ReactElement, useState } from "react";
+import { Container, Modal, Nav, Navbar } from "react-bootstrap";
 import recorded_sha from "./recorded_sha";
 
-function LNav(props: { userId: string; extra?: ReactElement }) {
+function LNav(props: {
+  userId: string;
+  logout: () => void;
+  extra?: ReactElement;
+}) {
+  const [show, update] = useState(false);
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -13,8 +17,11 @@ function LNav(props: { userId: string; extra?: ReactElement }) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link onClick={help}>Help</Nav.Link>
-            <Nav.Link onClick={logout}>Logout</Nav.Link>
+            <Nav.Link onClick={() => update(true)}>Help</Nav.Link>
+            <Modal show={show} onHide={() => update(false)}>
+              <Modal.Body>help</Modal.Body>
+            </Modal>
+            <Nav.Link onClick={props.logout}>Logout</Nav.Link>
             {props.extra}
             <Navbar.Brand>{props.userId}</Navbar.Brand>
           </Nav>
@@ -22,10 +29,6 @@ function LNav(props: { userId: string; extra?: ReactElement }) {
       </Container>
     </Navbar>
   );
-}
-
-function help() {
-  alert("help");
 }
 
 export default LNav;
