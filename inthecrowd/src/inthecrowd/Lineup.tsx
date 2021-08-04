@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import css from "./index.module.css";
-import Slot, { SlotCoordsType } from "./Slot";
+import { DayType } from "./MyRooms";
+import Slot from "./Slot";
 
-export type DayType = {
-  img: string;
-  width: string;
-  slots: { [slotKey: string]: SlotCoordsType };
-};
 type DayProps = {
   getOpacity: (slotKey: string) => number;
   getSelectedColor: (slotKey: string) => string;

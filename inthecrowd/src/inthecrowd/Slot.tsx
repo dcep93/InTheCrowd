@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./index.module.css";
+import { SlotCoordsType } from "./MyRooms";
 
-export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
 function Slot(props: {
   slotCoords: SlotCoordsType;
   getOpacity: () => number;

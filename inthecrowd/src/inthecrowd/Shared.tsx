@@ -4,10 +4,6 @@ import { Nav } from "react-bootstrap";
 import BaseRoom from "./BaseRoom";
 import LNav from "./LNav";
 
-export function randomKey() {
-  return Math.floor(Math.random() * 100000000);
-}
-
 function Shared(props: { userId: string; roomId: string }) {
   return (
     <>

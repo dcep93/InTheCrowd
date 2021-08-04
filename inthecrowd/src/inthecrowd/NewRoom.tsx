@@ -1,10 +1,9 @@
 import React, { RefObject } from "react";
 import firebase from "./firebase";
 import css from "./index.module.css";
-import { DayType } from "./Lineup";
 import LNav from "./LNav";
 import { randomKey } from "./Main";
-import { ScheduleType } from "./Schedule";
+import { DayType, ScheduleType } from "./MyRooms";
 
 class NewRoom extends React.Component<
   { userId: string },

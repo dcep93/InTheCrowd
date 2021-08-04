@@ -1,28 +1,14 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import firebase from "./firebase";
-import Lineup, { DayType } from "./Lineup";
+import Lineup from "./Lineup";
+import { RoomType, UserSlotType, UserType } from "./MyRooms";
 
 const MAX_VOTES = 2;
 
-type UserType = {
-  [slotKey: string]: UserSlotType;
-};
-type UserSlotType = {
-  selected: number;
-  location?: { lat: string; long: string; timestamp: number };
-};
-type UserDictSlotType = { [userId: string]: UserSlotType };
-
 class BaseRoom extends React.Component<
   { roomId: string; userId: string; readOnly?: boolean },
-  {
-    users: { [userId: string]: UserType };
-    days: DayType[];
-    name: string;
-    creator: string;
-    scheduleId: string;
-  }
+  RoomType
 > {
   componentDidMount() {
     firebase.init();
@@ -68,7 +54,7 @@ class BaseRoom extends React.Component<
     this.updateMyFirebase();
   }
 
-  getUserDictSlot(key: string): UserDictSlotType {
+  getUserDictSlot(key: string): { [userId: string]: UserSlotType } {
     return Object.fromEntries(
       Object.entries(this.state.users || {})
         .map(([userId, userSlots]) => ({

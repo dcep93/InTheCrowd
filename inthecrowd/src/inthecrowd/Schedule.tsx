@@ -2,16 +2,12 @@ import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
 import firebase from "./firebase";
 import css from "./index.module.css";
-import Lineup, { DayType } from "./Lineup";
+import Lineup from "./Lineup";
 import LNav from "./LNav";
 import { randomKey } from "./Main";
+import { ScheduleType } from "./MyRooms";
 import { createRoom } from "./NewRoom";
 
-export type ScheduleType = {
-  days: DayType[];
-  name: string;
-  updated: number;
-};
 class Schedule extends React.Component<
   { scheduleId: string; userId: string },
   ScheduleType
