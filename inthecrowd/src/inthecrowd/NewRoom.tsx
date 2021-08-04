@@ -9,6 +9,7 @@ class NewRoom extends React.Component<
   { [scheduleId: string]: ScheduleType }
 > {
   componentDidMount() {
+    document.title = "InTheCrowd";
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }

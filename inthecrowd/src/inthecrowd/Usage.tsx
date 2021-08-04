@@ -4,6 +4,7 @@ import css from "./index.module.css";
 
 class Usage extends React.Component {
   componentDidMount() {
+    document.title = "Usage";
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }

@@ -17,9 +17,16 @@ type UserDictSlotType = { [userId: string]: UserSlotType };
 
 class Lineup extends React.Component<
   { roomId: string; userId: string },
-  { users: { [userId: string]: UserType }; days: DayType[] }
+  {
+    users: { [userId: string]: UserType };
+    days: DayType[];
+    name: string;
+    creator: string;
+    scheduleId: string;
+  }
 > {
   componentDidMount() {
+    document.title = this.state.name;
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }

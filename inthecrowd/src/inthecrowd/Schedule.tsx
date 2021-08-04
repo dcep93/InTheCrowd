@@ -10,6 +10,7 @@ class Schedule extends React.Component<
   ScheduleType
 > {
   componentDidMount() {
+    document.title = this.state.name;
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }
