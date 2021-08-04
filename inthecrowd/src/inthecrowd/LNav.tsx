@@ -9,7 +9,7 @@ class LNav extends React.Component<{
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href={"/"} title={"v0.0.1"}>
+          <Navbar.Brand href={"/"} title={"v0.0.2"}>
             InTheCrowd
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
