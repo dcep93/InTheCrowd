@@ -88,7 +88,6 @@ class BaseRoom extends React.Component<
   }
 
   shareLocation(slotKey: string) {
-    if (this.props.readOnly) return;
     if (!navigator.geolocation) return alert("cannot get geolocation");
     const me = this.getMe();
     navigator.geolocation.getCurrentPosition((position) => {
@@ -161,7 +160,9 @@ class BaseRoom extends React.Component<
         contents={`${this.getMySelected(slotKey)}/${this.getTotalSelected(
           slotKey
         )}`}
-        shareLocation={() => this.shareLocation(slotKey)}
+        shareLocation={
+          this.props.readOnly ? undefined : () => this.shareLocation(slotKey)
+        }
         modalContents={this.getModalContents(slotKey)}
       />
     );
@@ -193,7 +194,7 @@ class BaseRoom extends React.Component<
 
 function GetContents(props: {
   contents: string;
-  shareLocation: () => void;
+  shareLocation?: () => void;
   modalContents: ReactElement;
 }) {
   const [show, update] = useState(false);
@@ -210,9 +211,11 @@ function GetContents(props: {
       <div onClick={(e) => e.stopPropagation()}>
         <Modal show={show} onHide={() => update(false)}>
           <Modal.Body>{props.modalContents}</Modal.Body>
-          <Modal.Footer>
-            <Button onClick={props.shareLocation}>Share Location</Button>
-          </Modal.Footer>
+          {props.shareLocation && (
+            <Modal.Footer>
+              <Button onClick={props.shareLocation}>Share Location</Button>
+            </Modal.Footer>
+          )}
         </Modal>
       </div>
     </>
