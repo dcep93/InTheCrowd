@@ -4,14 +4,11 @@ import firebase from "./firebase";
 import css from "./index.module.css";
 import Lineup from "./Lineup";
 import LNav from "./LNav";
-import { randomKey } from "./Main";
+import { getUserId, randomKey } from "./Main";
 import { ScheduleType } from "./MyRooms";
 import { createRoom } from "./NewRoom";
 
-class Schedule extends React.Component<
-  { scheduleId: string; userId: string },
-  ScheduleType
-> {
+class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   componentDidMount() {
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
@@ -25,9 +22,7 @@ class Schedule extends React.Component<
     firebase.set(
       this.getFirebasePath(),
       Object.assign({}, this.state, { updated: new Date().getTime() }),
-      `${
-        this.props.userId
-      } ${this.getFirebasePath()} ${new Date().toLocaleString()}`
+      `${getUserId()} ${this.getFirebasePath()} ${new Date().toLocaleString()}`
     );
   }
 
@@ -56,7 +51,6 @@ class Schedule extends React.Component<
                   createRoom(
                     this.props.scheduleId,
                     this.state.name || "schedule",
-                    this.props.userId,
                     this.state.days || []
                   )
                 }
@@ -97,7 +91,7 @@ class Schedule extends React.Component<
             </div>
           </div>
           <Lineup
-            userId={this.props.userId}
+            userId={getUserId()}
             days={this.state.days || []}
             imgClick={this.imgClick.bind(this)}
             slotClick={this.slotClick.bind(this)}

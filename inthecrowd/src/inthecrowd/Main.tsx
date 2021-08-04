@@ -35,8 +35,7 @@ function Main() {
 const STORAGE_KEY = "inthecrowd/0.2.1";
 
 function LoggedInMain() {
-  const userId = getUserId();
-  if (!userId) {
+  if (!getUserId()) {
     login();
     return null;
   }
@@ -45,22 +44,17 @@ function LoggedInMain() {
     <Router>
       <div>
         <Switch>
-          <Route exact path={`/`} render={() => <NewRoom userId={userId} />} />
-          <Route path={`/room`} render={() => <MyRooms userId={userId} />} />
+          <Route exact path={`/`} render={() => <NewRoom />} />
+          <Route path={`/room`} render={() => <MyRooms />} />
           <Route
             path={`/schedule/:scheduleId`}
             render={(props) => (
-              <Schedule
-                scheduleId={props.match.params.scheduleId}
-                userId={userId}
-              />
+              <Schedule scheduleId={props.match.params.scheduleId} />
             )}
           />
           <Route
             path={`/room/:roomId`}
-            render={(props) => (
-              <Room userId={userId} roomId={props.match.params.roomId} />
-            )}
+            render={(props) => <Room roomId={props.match.params.roomId} />}
           />
           <Route path={`/usage`} render={() => <Usage />} />
           <Route path={`*`} render={() => "404 not found"} />

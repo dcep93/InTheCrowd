@@ -2,15 +2,17 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import BaseRoom from "./BaseRoom";
 import LNav from "./LNav";
+import { getUserId } from "./Main";
 
-function Room(props: { userId: string; roomId: string }) {
+function Room(props: { roomId: string }) {
+  const userId = getUserId();
   return (
     <>
       <LNav
         extra={
           <Nav.Link
             onClick={() =>
-              (window.location.href = `/room/${props.roomId}/user/${props.userId}`)
+              (window.location.href = `/room/${props.roomId}/user/${userId}`)
             }
           >
             Share
@@ -18,7 +20,7 @@ function Room(props: { userId: string; roomId: string }) {
         }
       />
 
-      <BaseRoom roomId={props.roomId} userId={props.userId} />
+      <BaseRoom roomId={props.roomId} userId={userId} />
     </>
   );
 }

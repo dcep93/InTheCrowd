@@ -35,7 +35,7 @@ export type ScheduleType = {
 };
 
 class MyRooms extends React.Component<
-  { userId: string },
+  {},
   {
     room: { [roomId: string]: RoomType };
     schedule: { [scheduleId: string]: ScheduleType };

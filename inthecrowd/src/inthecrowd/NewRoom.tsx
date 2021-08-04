@@ -2,11 +2,11 @@ import React, { RefObject } from "react";
 import firebase from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
-import { randomKey } from "./Main";
+import { getUserId, randomKey } from "./Main";
 import { DayType, ScheduleType } from "./MyRooms";
 
 class NewRoom extends React.Component<
-  { userId: string },
+  {},
   { [scheduleId: string]: ScheduleType }
 > {
   componentDidMount() {
@@ -22,9 +22,7 @@ class NewRoom extends React.Component<
     firebase.set(
       this.getFirebasePath(),
       this.state,
-      `${
-        this.props.userId
-      } ${this.getFirebasePath()} ${new Date().toLocaleString()}`
+      `${getUserId()} ${this.getFirebasePath()} ${new Date().toLocaleString()}`
     );
   }
 
@@ -82,18 +80,13 @@ class NewRoom extends React.Component<
     createRoom(
       scheduleId,
       this.inputRef.current!.value,
-      this.props.userId,
       this.state[scheduleId].days || []
     );
   }
 }
 
-export function createRoom(
-  scheduleId: string,
-  name: string,
-  creator: string,
-  days: DayType[]
-) {
+export function createRoom(scheduleId: string, name: string, days: DayType[]) {
+  const creator = getUserId();
   const room = {
     name,
     days,
