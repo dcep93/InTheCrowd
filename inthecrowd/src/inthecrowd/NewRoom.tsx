@@ -23,7 +23,6 @@ class NewRoom extends React.Component<
         <div className={css.flex}>
           <div className={css.bubble}>
             <select ref={this.selectRef} onChange={() => this.forceUpdate()}>
-              <option value={""}>new schedule</option>
               {Object.entries(this.state)
                 .map(([scheduleId, schedule]) => ({ scheduleId, schedule }))
                 .sort((a, b) => b.schedule.updated - a.schedule.updated)
@@ -32,6 +31,7 @@ class NewRoom extends React.Component<
                     {schedule.name}#{scheduleId}
                   </option>
                 ))}
+              <option value={""}>new schedule</option>
             </select>
             <button
               onClick={() =>
