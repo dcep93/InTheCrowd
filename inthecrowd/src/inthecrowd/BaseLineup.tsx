@@ -4,6 +4,7 @@ import Slot, { SlotCoordsType } from "./Slot";
 
 export type DayType = {
   img: string;
+  width: string;
   slots: { [slotKey: string]: SlotCoordsType };
 };
 type DayProps = {
@@ -36,6 +37,7 @@ function Day(props: { i: number; day: DayType } & DayProps) {
     <div>
       <div
         className={css.hideDay}
+        style={{ width: props.day.width }}
         onClick={() => {
           update(!hidden);
           resetZoom();
@@ -45,10 +47,10 @@ function Day(props: { i: number; day: DayType } & DayProps) {
       </div>
       <div className={css.day} hidden={hidden}>
         <img
-          className={css.img}
           alt={"missing"}
           src={props.day.img}
           onClick={(e) => props.imgClick(props.i, e)}
+          style={{ width: props.day.width }}
         />
         <div>
           {Object.entries(props.day.slots || []).map(([key, slotCoords]) => (

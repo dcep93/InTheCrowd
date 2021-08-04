@@ -90,7 +90,7 @@ class Schedule extends React.Component<
                 if (!img) return true;
                 if (!this.state.days)
                   Object.assign(this.state as any, { days: [] });
-                this.state.days.push({ img, slots: {} });
+                this.state.days.push({ img, slots: {}, width: "100%" });
                 this.updateFirebase();
                 return true;
               }}
@@ -113,7 +113,7 @@ class Schedule extends React.Component<
   badState?: { dayIndex: number; slotCorner: { x: number; y: number } };
   imgClick(dayIndex: number, e: React.MouseEvent) {
     // @ts-ignore
-    const { x, y } = e.target;
+    const { x, y, width } = e.target;
     const slotCorner = { x: e.clientX - x, y: e.clientY - y };
     if (dayIndex !== this.badState?.dayIndex) {
       this.badState = { dayIndex, slotCorner };
@@ -127,12 +127,14 @@ class Schedule extends React.Component<
       x2: slotCorner.x,
       y2: slotCorner.y,
     };
+    day.width = width;
     this.badState = undefined;
     this.updateFirebase();
   }
 
   slotClick(dayIndex: number, slotKey: string) {
-    const slots = this.state.days[dayIndex].slots;
+    const day = this.state.days[dayIndex];
+    const slots = day.slots;
     delete slots[slotKey];
     this.updateFirebase();
   }
