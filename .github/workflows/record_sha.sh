@@ -3,4 +3,4 @@
 set -euo pipefail
 
 cd inthecrowd/src/inthecrowd
-echo "export default \"$(git rev-parse HEAD)\";" > recorded_sha.tsx
+printf "// eslint-disable-next-line import/no-anonymous-default-export\nexport default \"%s\";\n" "$(git rev-parse HEAD)" > recorded_sha.tsx
