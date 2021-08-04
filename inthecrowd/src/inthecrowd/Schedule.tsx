@@ -31,7 +31,7 @@ class Schedule extends React.Component<
   inputRef: RefObject<HTMLInputElement> = React.createRef();
   render() {
     if (!this.state) return "loading...";
-    document.title = this.state.name;
+    document.title = this.state.name || "schedule";
     return (
       <div>
         <div className={css.flex}>
