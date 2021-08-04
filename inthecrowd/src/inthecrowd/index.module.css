@@ -1,0 +1,50 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble {
+  display: inline-block;
+  border-radius: 1em;
+  border: 2px solid black;
+  padding: 0.7em;
+  margin: 0.5em;
+}
+
+.inline {
+  display: inline;
+}
+
+.courier {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.day {
+  position: relative;
+}
+
+.img {
+  width: 100%;
+}
+
+.slotWrapper {
+  position: absolute;
+  z-index: 1;
+}
+
+.slot {
+  width: 100%;
+  height: 100%;
+}
+
+.slotCount {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+}
+
+.logout {
+  z-index: 1;
+  position: absolute;
+}
