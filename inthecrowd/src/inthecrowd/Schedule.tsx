@@ -52,7 +52,7 @@ class Schedule extends React.Component<
               onClick={() =>
                 createRoom(
                   this.props.scheduleId,
-                  "InTheCrowd",
+                  this.state.name || "schedule",
                   this.props.userId,
                   this.state.days || []
                 )
