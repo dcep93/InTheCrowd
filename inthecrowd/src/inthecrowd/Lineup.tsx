@@ -10,24 +10,23 @@ type DayProps = {
   imgClick: (dayIndex: number, e: React.MouseEvent) => void;
   slotClick: (dayIndex: number, slotKey: string) => void;
 };
-function Lineup(
-  props: {
-    userId: string;
-    days: DayType[];
-  } & DayProps
-) {
+function Lineup(props: {
+  userId: string;
+  days: DayType[];
+  dayProps: DayProps;
+}) {
   return (
     <div>
       <div className={css.imgs}>
         {(props.days || []).map((day, i) => (
-          <Day key={i} {...props} i={i} day={day} />
+          <Day key={i} dayProps={props.dayProps} i={i} day={day} />
         ))}
       </div>
     </div>
   );
 }
 
-function Day(props: { i: number; day: DayType } & DayProps) {
+function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
   const [hidden, update] = useState(false);
   return (
     <div>
@@ -45,17 +44,20 @@ function Day(props: { i: number; day: DayType } & DayProps) {
         <img
           alt={"missing"}
           src={props.day.img}
-          onClick={(e) => props.imgClick(props.i, e)}
+          onClick={(e) => props.dayProps.imgClick(props.i, e)}
           style={{ width: props.day.width }}
         />
         <div>
           {Object.entries(props.day.slots || []).map(([key, slotCoords]) => (
-            <div key={key} onClick={() => props.slotClick(props.i, key)}>
+            <div
+              key={key}
+              onClick={() => props.dayProps.slotClick(props.i, key)}
+            >
               <Slot
                 slotCoords={slotCoords}
-                getOpacity={() => props.getOpacity(key)}
-                getSelectedColor={() => props.getSelectedColor(key)}
-                getContents={() => props.getContents(key)}
+                getOpacity={() => props.dayProps.getOpacity(key)}
+                getSelectedColor={() => props.dayProps.getSelectedColor(key)}
+                getContents={() => props.dayProps.getContents(key)}
               />
             </div>
           ))}

@@ -8,6 +8,8 @@ import Schedule from "./Schedule";
 import Shared from "./Shared";
 import Usage from "./Usage";
 
+const STORAGE_KEY = "inthecrowd/0.2.1";
+
 export function randomKey() {
   return Math.floor(Math.random() * 100000000);
 }
@@ -31,8 +33,6 @@ function Main() {
     </Router>
   );
 }
-
-const STORAGE_KEY = "inthecrowd/0.2.1";
 
 function LoggedInMain() {
   if (!getUserId()) {

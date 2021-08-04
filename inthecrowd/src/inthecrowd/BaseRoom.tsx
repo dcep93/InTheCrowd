@@ -15,7 +15,7 @@ class BaseRoom extends React.Component<
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
   }
 
-  getFirebasePath() {
+  getFirebasePath(): string {
     return `/room/${this.props.roomId}`;
   }
 
@@ -32,11 +32,13 @@ class BaseRoom extends React.Component<
         <Lineup
           userId={this.props.userId}
           days={this.state.days}
-          imgClick={() => null}
-          slotClick={this.slotClick.bind(this)}
-          getOpacity={this.getOpacity.bind(this)}
-          getSelectedColor={this.getSelectedColor.bind(this)}
-          getContents={this.getContents.bind(this)}
+          dayProps={{
+            imgClick: () => null,
+            slotClick: this.slotClick.bind(this),
+            getOpacity: this.getOpacity.bind(this),
+            getSelectedColor: this.getSelectedColor.bind(this),
+            getContents: this.getContents.bind(this),
+          }}
         />
       </>
     );

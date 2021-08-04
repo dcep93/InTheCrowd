@@ -93,11 +93,13 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
           <Lineup
             userId={getUserId()}
             days={this.state.days || []}
-            imgClick={this.imgClick.bind(this)}
-            slotClick={this.slotClick.bind(this)}
-            getOpacity={() => 0.4}
-            getSelectedColor={() => "black"}
-            getContents={() => "*"}
+            dayProps={{
+              imgClick: this.imgClick.bind(this),
+              slotClick: this.slotClick.bind(this),
+              getOpacity: () => 0.4,
+              getSelectedColor: () => "black",
+              getContents: () => "*",
+            }}
           />
         </div>
       </>
