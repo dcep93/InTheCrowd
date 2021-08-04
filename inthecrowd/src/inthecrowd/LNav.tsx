@@ -125,11 +125,22 @@ function help() {
       </Modal.Body>
       <Modal.Header></Modal.Header>
       <Modal.Header>
+        <h3>Find a Room</h3>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
+          Click your username in the header to see rooms that you've
+          participated in. You can edit a room's name or update the schedule for
+          a room.
+        </div>
+      </Modal.Body>
+      <Modal.Header></Modal.Header>
+      <Modal.Header>
         <h3>Daniel's TODO list</h3>
       </Modal.Header>
       <Modal.Body>
         <ul>
-          <li>/room page</li>
+          <li>stricter types</li>
           <li>some security</li>
           <li>google login</li>
         </ul>

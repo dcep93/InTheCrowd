@@ -19,11 +19,7 @@ class NewRoom extends React.Component<
   }
 
   updateFirebase() {
-    firebase.set(
-      this.getFirebasePath(),
-      this.state,
-      `${getUserId()} ${this.getFirebasePath()} ${new Date().toLocaleString()}`
-    );
+    firebase.set(this.getFirebasePath(), this.state);
   }
 
   selectRef: RefObject<HTMLSelectElement> = React.createRef();
@@ -77,28 +73,32 @@ class NewRoom extends React.Component<
 
   createRoom() {
     const scheduleId = this.selectRef.current!.value;
+    const schedule = this.state[scheduleId];
     createRoom(
       scheduleId,
       this.inputRef.current!.value,
-      this.state[scheduleId].days || []
+      schedule.days || [],
+      schedule.updated
     );
   }
 }
 
-export function createRoom(scheduleId: string, name: string, days: DayType[]) {
+export function createRoom(
+  scheduleId: string,
+  name: string,
+  days: DayType[],
+  scheduleUpdated: number
+) {
   const creator = getUserId();
   const room = {
     name,
     days,
     creator,
     scheduleId,
+    scheduleUpdated,
   };
   const roomId = randomKey();
-  firebase.set(
-    `/room/${roomId}`,
-    room,
-    `${creator} create room ${new Date().toLocaleString()}`
-  );
+  firebase.set(`/room/${roomId}`, room, `create`);
   window.location.href = `/room/${roomId}`;
 }
 

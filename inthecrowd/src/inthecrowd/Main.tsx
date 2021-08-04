@@ -45,7 +45,6 @@ function LoggedInMain() {
       <div>
         <Switch>
           <Route exact path={`/`} render={() => <NewRoom />} />
-          <Route path={`/room`} render={() => <MyRooms />} />
           <Route
             path={`/schedule/:scheduleId`}
             render={(props) => (
@@ -56,6 +55,7 @@ function LoggedInMain() {
             path={`/room/:roomId`}
             render={(props) => <Room roomId={props.match.params.roomId} />}
           />
+          <Route path={`/room`} render={() => <MyRooms />} />
           <Route path={`/usage`} render={() => <Usage />} />
           <Route path={`*`} render={() => "404 not found"} />
         </Switch>

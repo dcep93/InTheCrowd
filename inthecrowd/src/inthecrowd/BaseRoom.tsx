@@ -21,11 +21,7 @@ class BaseRoom extends React.Component<
 
   updateMyFirebase() {
     const path = `${this.getFirebasePath()}/users/${this.props.userId}`;
-    firebase.set(
-      path,
-      this.getMe(),
-      `${this.props.userId} ${path} ${new Date().toLocaleString()}`
-    );
+    firebase.set(path, this.getMe());
   }
 
   render() {

@@ -3,6 +3,7 @@
 
 import firebase from "firebase/app";
 import "firebase/database";
+import { getUserId } from "./Main";
 
 const config = {
   databaseURL: "https://firebase-320421-default-rtdb.firebaseio.com/",
@@ -36,9 +37,9 @@ function connect(path: string, callback: (value: BlobType) => void): void {
   });
 }
 
-function set(path: string, obj: BlobType, message: string): void {
+function set(path: string, obj: BlobType, message: string = ""): void {
   database.ref(`${BASE}/${path}`).set(obj);
-  push("/usage", message);
+  push("/usage", [getUserId(), path, new Date().toLocaleString(), message]);
 }
 
 const ex = { init, push, connect, set };

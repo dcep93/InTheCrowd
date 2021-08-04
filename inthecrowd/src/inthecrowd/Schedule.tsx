@@ -21,8 +21,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   updateFirebase() {
     firebase.set(
       this.getFirebasePath(),
-      Object.assign({}, this.state, { updated: new Date().getTime() }),
-      `${getUserId()} ${this.getFirebasePath()} ${new Date().toLocaleString()}`
+      Object.assign({}, this.state, { updated: new Date().getTime() })
     );
   }
 
@@ -51,7 +50,8 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                   createRoom(
                     this.props.scheduleId,
                     this.state.name || "schedule",
-                    this.state.days || []
+                    this.state.days || [],
+                    this.state.updated
                   )
                 }
               >

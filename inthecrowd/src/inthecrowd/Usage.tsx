@@ -3,7 +3,7 @@ import firebase from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 
-class Usage extends React.Component {
+class Usage extends React.Component<{}, { [key: string]: string }> {
   componentDidMount() {
     firebase.init();
     firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
