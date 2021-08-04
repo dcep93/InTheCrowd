@@ -1,25 +1,15 @@
 import React, { RefObject } from "react";
-import firebase from "./firebase";
+import firebase, { ScheduleType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 import { getUserId, randomKey } from "./Main";
-import { DayType, ScheduleType } from "./MyRooms";
 
 class NewRoom extends React.Component<
   {},
   { [scheduleId: string]: ScheduleType }
 > {
   componentDidMount() {
-    firebase.init();
-    firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
-  }
-
-  getFirebasePath() {
-    return `/schedule`;
-  }
-
-  updateFirebase() {
-    firebase.set(this.getFirebasePath(), this.state);
+    firebase.connectSchedules(this.setState.bind(this));
   }
 
   selectRef: RefObject<HTMLSelectElement> = React.createRef();
@@ -74,32 +64,23 @@ class NewRoom extends React.Component<
   createRoom() {
     const scheduleId = this.selectRef.current!.value;
     const schedule = this.state[scheduleId];
-    createRoom(
-      scheduleId,
-      this.inputRef.current!.value,
-      schedule.days || [],
-      schedule.updated
-    );
+    createRoom(this.inputRef.current!.value, schedule);
   }
 }
 
-export function createRoom(
-  scheduleId: string,
-  name: string,
-  days: DayType[],
-  scheduleUpdated: number
-) {
+export function createRoom(name: string, schedule: ScheduleType) {
   const creator = getUserId();
+  const id = randomKey().toString();
   const room = {
+    id,
     name,
-    days,
+    days: schedule.days,
     creator,
-    scheduleId,
-    scheduleUpdated,
+    schedule,
+    users: {},
   };
-  const roomId = randomKey();
-  firebase.set(`/room/${roomId}`, room, `create`);
-  window.location.href = `/room/${roomId}`;
+  firebase.createRoom(id, room);
+  window.location.href = `/room/${id}`;
 }
 
 export default NewRoom;

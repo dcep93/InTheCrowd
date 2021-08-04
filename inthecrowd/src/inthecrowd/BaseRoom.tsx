@@ -1,8 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import firebase from "./firebase";
+import firebase, { RoomType, UserSlotType, UserType } from "./firebase";
 import Lineup from "./Lineup";
-import { RoomType, UserSlotType, UserType } from "./MyRooms";
 
 const MAX_VOTES = 2;
 
@@ -11,17 +10,11 @@ class BaseRoom extends React.Component<
   RoomType
 > {
   componentDidMount() {
-    firebase.init();
-    firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
-  }
-
-  getFirebasePath(): string {
-    return `/room/${this.props.roomId}`;
+    firebase.connectRoom(this.props.roomId, this.setState.bind(this));
   }
 
   updateMyFirebase() {
-    const path = `${this.getFirebasePath()}/users/${this.props.userId}`;
-    firebase.set(path, this.getMe());
+    firebase.updateRoomUser(this.props.roomId, this.props.userId, this.getMe());
   }
 
   render() {
@@ -65,7 +58,7 @@ class BaseRoom extends React.Component<
   }
 
   getMe(): UserType {
-    const s = this.state as any;
+    const s = this.state as RoomType;
     if (!s.users) s.users = {};
     if (!s.users[this.props.userId]) s.users[this.props.userId] = {};
     return s.users[this.props.userId];

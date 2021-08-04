@@ -1,6 +1,6 @@
 import React from "react";
+import { SlotCoordsType } from "./firebase";
 import css from "./index.module.css";
-import { SlotCoordsType } from "./MyRooms";
 
 function Slot(props: {
   slotCoords: SlotCoordsType;

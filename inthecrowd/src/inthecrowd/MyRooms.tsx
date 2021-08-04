@@ -1,56 +1,13 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
-import firebase from "./firebase";
+import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 import { getUserId } from "./Main";
 
-export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
-
-export type DayType = {
-  img: string;
-  width: string;
-  slots: { [slotKey: string]: SlotCoordsType };
-};
-
-export type UserType = {
-  [slotKey: string]: UserSlotType;
-};
-
-export type UserSlotType = {
-  selected: number;
-  location?: { lat: string; long: string; timestamp: number };
-};
-
-export type RoomType = {
-  users: { [userId: string]: UserType };
-  days: DayType[];
-  name: string;
-  creator: string;
-  scheduleId: string;
-  scheduleUpdated: number;
-};
-
-export type ScheduleType = {
-  days: DayType[];
-  name: string;
-  updated: number;
-};
-
-class MyRooms extends React.Component<
-  {},
-  {
-    room: { [roomId: string]: RoomType };
-    schedule: { [scheduleId: string]: ScheduleType };
-  }
-> {
+class MyRooms extends React.Component<{}, MainType> {
   componentDidMount() {
-    firebase.init();
-    firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
-  }
-
-  getFirebasePath() {
-    return `/`;
+    firebase.connectMain(this.setState.bind(this));
   }
 
   render() {
@@ -74,22 +31,21 @@ class MyRooms extends React.Component<
               <div>
                 <TextEditor
                   defaultValue={room.name}
-                  submit={(val) => firebase.set(`/room/${roomId}/name`, val)}
+                  submit={(val) => firebase.setRoomName(roomId, val)}
                 />
               </div>
               <div className={css.bubble}>
-                <h5>{this.state.schedule[room.scheduleId].name}</h5>
+                <h5>{this.state.room.schedule.name}</h5>
                 <Button
                   disabled={
-                    this.state.schedule[room.scheduleId].updated ===
-                    room.scheduleUpdated
+                    this.state.schedule[room.schedule.id].updated ===
+                    room.schedule.updated
                   }
                   onClick={() =>
-                    firebase.set(`/room/${roomId}`, {
-                      days: this.state.schedule[room.scheduleId].days,
-                      scheduleUpdated:
-                        this.state.schedule[room.scheduleId].updated,
-                    })
+                    firebase.setRoomSchedule(
+                      roomId,
+                      this.state.schedule[room.schedule.id]
+                    )
                   }
                 >
                   Update Days From Schedule

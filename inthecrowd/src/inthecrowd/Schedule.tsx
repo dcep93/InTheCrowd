@@ -1,26 +1,20 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
-import firebase from "./firebase";
+import firebase, { ScheduleType } from "./firebase";
 import css from "./index.module.css";
 import Lineup from "./Lineup";
 import LNav from "./LNav";
 import { getUserId, randomKey } from "./Main";
-import { ScheduleType } from "./MyRooms";
 import { createRoom } from "./NewRoom";
 
 class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   componentDidMount() {
-    firebase.init();
-    firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
-  }
-
-  getFirebasePath() {
-    return `/schedule/${this.props.scheduleId}`;
+    firebase.connectSchedule(this.props.scheduleId, this.setState.bind(this));
   }
 
   updateFirebase() {
-    firebase.set(
-      this.getFirebasePath(),
+    firebase.updateSchedule(
+      this.props.scheduleId,
       Object.assign({}, this.state, { updated: new Date().getTime() })
     );
   }
@@ -39,21 +33,14 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
               <TextEditor
                 defaultValue={this.state.name || "schedule"}
                 submit={(name) => {
-                  Object.assign(this.state as any, { name });
+                  Object.assign(this.state as ScheduleType, { name });
                   this.updateFirebase();
                   return false;
                 }}
               />
               <div>#{this.props.scheduleId}</div>
               <Button
-                onClick={() =>
-                  createRoom(
-                    this.props.scheduleId,
-                    this.state.name || "schedule",
-                    this.state.days || [],
-                    this.state.updated
-                  )
-                }
+                onClick={() => createRoom(this.props.scheduleId, this.state)}
               >
                 Create Room
               </Button>
@@ -82,7 +69,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                 submit={(img) => {
                   if (!img) return true;
                   if (!this.state.days)
-                    Object.assign(this.state as any, { days: [] });
+                    Object.assign(this.state as ScheduleType, { days: [] });
                   this.state.days.push({ img, slots: {}, width: "100%" });
                   this.updateFirebase();
                   return true;

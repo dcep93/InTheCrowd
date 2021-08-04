@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { DayType } from "./firebase";
 import css from "./index.module.css";
-import { DayType } from "./MyRooms";
 import Slot from "./Slot";
 
 type DayProps = {

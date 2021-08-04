@@ -3,7 +3,6 @@
 
 import firebase from "firebase/app";
 import "firebase/database";
-import { getUserId } from "./Main";
 
 const config = {
   databaseURL: "https://firebase-320421-default-rtdb.firebaseio.com/",
@@ -16,7 +15,7 @@ type BlobType = any;
 const BASE = "/inthecrowd";
 
 var initialized = false;
-function init(): void {
+function _init(): void {
   if (initialized) return;
   initialized = true;
   try {
@@ -25,11 +24,11 @@ function init(): void {
   database = firebase.database();
 }
 
-function push(path: string, obj: BlobType): void {
+function _push(path: string, obj: BlobType): void {
   database.ref(`${BASE}${path}`).push(obj);
 }
 
-function connect(path: string, callback: (value: BlobType) => void): void {
+function _connect(path: string, callback: (value: BlobType) => void): void {
   database.ref(`${BASE}/${path}`).on("value", (snapshot: ResultType) => {
     var val = snapshot.val();
     console.log(val);
@@ -37,10 +36,9 @@ function connect(path: string, callback: (value: BlobType) => void): void {
   });
 }
 
-function set(path: string, obj: BlobType, message: string = ""): void {
+function _set(path: string, obj: BlobType, message: string = ""): void {
   database.ref(`${BASE}/${path}`).set(obj);
-  push("/usage", [getUserId(), path, new Date().toLocaleString(), message]);
 }
 
-const ex = { init, push, connect, set };
+const ex = { _init, _push, _connect, _set };
 export default ex;

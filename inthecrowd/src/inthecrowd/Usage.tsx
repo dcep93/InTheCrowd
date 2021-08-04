@@ -1,16 +1,11 @@
 import React from "react";
-import firebase from "./firebase";
+import firebase, { UsageType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 
-class Usage extends React.Component<{}, { [key: string]: string }> {
+class Usage extends React.Component<{}, { [key: string]: UsageType }> {
   componentDidMount() {
-    firebase.init();
-    firebase.connect(this.getFirebasePath(), (val) => this.setState(val || {}));
-  }
-
-  getFirebasePath() {
-    return `/usage`;
+    firebase.connectUsage(this.setState.bind(this));
   }
 
   render() {
@@ -24,7 +19,7 @@ class Usage extends React.Component<{}, { [key: string]: string }> {
             .reverse()
             .map((s, i) => (
               <div key={i}>
-                {i} {s as string}
+                {i} {JSON.stringify(s)}
               </div>
             ))}
         </div>
