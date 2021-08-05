@@ -140,7 +140,6 @@ function help() {
       </Modal.Header>
       <Modal.Body>
         <ul>
-          <li>stricter types</li>
           <li>some security</li>
           <li>google login</li>
         </ul>
