@@ -136,7 +136,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
               imgClick: this.imgClick.bind(this),
               slotClick: this.slotClick.bind(this),
               getOpacity: () => 0.4,
-              getSelectedColor: () => "black",
+              getSelectedColor: () => "gold",
               getContents: () => "*",
             }}
           />
