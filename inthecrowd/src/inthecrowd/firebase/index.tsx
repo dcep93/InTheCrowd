@@ -108,7 +108,10 @@ function connectSchedule(
 }
 
 function updateSchedule(scheduleId: string, schedule: ScheduleType) {
-  setWrapper(`/schedules/${scheduleId}`, schedule);
+  setWrapper(
+    `/schedules/${scheduleId}`,
+    Object.assign({ updated: new Date().getTime() }, schedule)
+  );
 }
 
 function connectUsage(setState: (usage: { [key: string]: UsageType }) => void) {
