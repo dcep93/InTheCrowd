@@ -39,9 +39,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                 }}
               />
               <div>#{this.props.scheduleId}</div>
-              <Button
-                onClick={() => createRoom(this.props.scheduleId, this.state)}
-              >
+              <Button onClick={() => createRoom(this.state.name, this.state)}>
                 Create Room
               </Button>
             </div>
