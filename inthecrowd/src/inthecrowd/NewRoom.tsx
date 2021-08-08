@@ -43,11 +43,7 @@ class NewRoom extends React.Component<
               Edit Schedule
             </button>
             <div>
-              <input
-                type={"text"}
-                ref={this.inputRef}
-                defaultValue={"InTheCrowd"}
-              />
+              <input type={"text"} ref={this.inputRef} defaultValue={""} />
               <button
                 onClick={this.createRoom.bind(this)}
                 disabled={this.selectRef.current?.value === ""}
@@ -64,7 +60,7 @@ class NewRoom extends React.Component<
   createRoom() {
     const scheduleId = this.selectRef.current!.value;
     const schedule = this.state[scheduleId];
-    createRoom(this.inputRef.current!.value, schedule);
+    createRoom(this.inputRef.current!.value || schedule.name, schedule);
   }
 }
 
