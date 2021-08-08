@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
 import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
-import { getUserId } from "./Main";
+import { getUserId, mapSort } from "./Main";
 
 class MyRooms extends React.Component<{}, MainType> {
   componentDidMount() {
@@ -15,47 +15,45 @@ class MyRooms extends React.Component<{}, MainType> {
     const userId = getUserId();
     return (
       <div>
-        {Object.entries(this.state.rooms || {})
-          .filter(
-            ([roomId, room]) =>
-              room.creator === userId || (room.users || {})[userId]
-          )
-          .map(([roomId, room]) => (
-            <div key={roomId} className={css.bubble}>
+        {mapSort(
+          Object.values(this.state.rooms || {}).filter(
+            (room) => room.creator === userId || (room.users || {})[userId]
+          ),
+          (room) => room.schedule.updated
+        ).map((room) => (
+          <div key={room.id} className={css.bubble}>
+            <div>
+              <TextEditor
+                defaultValue={room.name}
+                submit={(val) => firebase.setRoomName(room.id, val)}
+              />
+            </div>
+            <div>
+              <a href={`/room/${room.id}`}>#{room.id}</a>
+            </div>
+            <div>by {room.creator}</div>
+            <div className={css.bubble}>
+              <h5>{room.schedule.name}</h5>
+              <a href={`/schedule/${room.schedule.id}`}>#{room.schedule.id}</a>
               <div>
-                <TextEditor
-                  defaultValue={room.name}
-                  submit={(val) => firebase.setRoomName(roomId, val)}
-                />
-              </div>
-              <div>
-                <a href={`/room/${roomId}`}>#{roomId}</a>
-              </div>
-              <div>by {room.creator}</div>
-              <div className={css.bubble}>
-                <h5>{room.schedule.name}</h5>
-                <a href={`/schedule/${room.schedule.id}`}>
-                  #{room.schedule.id}
-                </a>
-                <div>
-                  <Button
-                    disabled={
-                      (this.state.schedules || {})[room.schedule.id].updated ===
-                      room.schedule.updated
-                    }
-                    onClick={() =>
-                      firebase.setRoomSchedule(
-                        roomId,
-                        (this.state.schedules || {})[room.schedule.id]
-                      )
-                    }
-                  >
-                    Update Days From Schedule
-                  </Button>
-                </div>
+                <Button
+                  disabled={
+                    (this.state.schedules || {})[room.schedule.id].updated ===
+                    room.schedule.updated
+                  }
+                  onClick={() =>
+                    firebase.setRoomSchedule(
+                      room.id,
+                      (this.state.schedules || {})[room.schedule.id]
+                    )
+                  }
+                >
+                  Update Days From Schedule
+                </Button>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     );
   }

@@ -9,6 +9,13 @@ import Usage from "./Usage";
 
 const STORAGE_KEY = "inthecrowd/0.2.1";
 
+export function mapSort<T>(arr: T[], f: (val: T) => number): T[] {
+  return arr
+    .map((val) => ({ val, key: f(val) }))
+    .sort((a, b) => b.key - a.key)
+    .map((o) => o.val);
+}
+
 export function randomKey(
   range: number = 100000000,
   disallowed: { [key: string]: any } = {}

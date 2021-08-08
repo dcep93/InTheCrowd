@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import firebase, { ScheduleType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
-import { getUserId, randomKey } from "./Main";
+import { getUserId, mapSort, randomKey } from "./Main";
 import MyRooms from "./MyRooms";
 
 class NewRoom extends React.Component<
@@ -24,14 +24,17 @@ class NewRoom extends React.Component<
         <div className={css.flex}>
           <div className={css.bubble}>
             <select ref={this.selectRef} onChange={() => this.forceUpdate()}>
-              {Object.entries(this.state)
-                .map(([scheduleId, schedule]) => ({ scheduleId, schedule }))
-                .sort((a, b) => b.schedule.updated - a.schedule.updated)
-                .map(({ scheduleId, schedule }) => (
-                  <option key={scheduleId} value={scheduleId}>
-                    {schedule.name}#{scheduleId}
-                  </option>
-                ))}
+              {mapSort(
+                Object.entries(this.state).map(([scheduleId, schedule]) => ({
+                  scheduleId,
+                  schedule,
+                })),
+                (obj) => obj.schedule.updated
+              ).map(({ scheduleId, schedule }) => (
+                <option key={scheduleId} value={scheduleId}>
+                  {schedule.name}#{scheduleId}
+                </option>
+              ))}
               <option value={""}>new schedule</option>
             </select>
             <button
