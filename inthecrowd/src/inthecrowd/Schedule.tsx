@@ -15,7 +15,10 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   updateFirebase() {
     firebase.updateSchedule(
       this.props.scheduleId,
-      Object.assign({}, this.state, { updated: new Date().getTime() })
+      Object.assign({}, this.state, {
+        id: this.props.scheduleId,
+        updated: new Date().getTime(),
+      })
     );
   }
 
