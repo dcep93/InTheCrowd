@@ -10,8 +10,8 @@ import Usage from "./Usage";
 
 const STORAGE_KEY = "inthecrowd/0.2.1";
 
-export function randomKey() {
-  return Math.floor(Math.random() * 100000000);
+export function randomKey(range: number = 100000000) {
+  return Math.floor(Math.random() * range);
 }
 
 function Main() {

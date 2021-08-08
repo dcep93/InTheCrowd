@@ -25,31 +25,36 @@ class MyRooms extends React.Component<{}, MainType> {
           .map(([roomId, room]) => (
             <div key={roomId} className={css.bubble}>
               <div>
-                <a href={`/room/${roomId}`}>#{roomId}</a>
-              </div>
-              <div>by {room.creator}</div>
-              <div>
                 <TextEditor
                   defaultValue={room.name}
                   submit={(val) => firebase.setRoomName(roomId, val)}
                 />
               </div>
+              <div>
+                <a href={`/room/${roomId}`}>#{roomId}</a>
+              </div>
+              <div>by {room.creator}</div>
               <div className={css.bubble}>
                 <h5>{room.schedule.name}</h5>
-                <Button
-                  disabled={
-                    (this.state.schedules || {})[room.schedule.id].updated ===
-                    room.schedule.updated
-                  }
-                  onClick={() =>
-                    firebase.setRoomSchedule(
-                      roomId,
-                      (this.state.schedules || {})[room.schedule.id]
-                    )
-                  }
-                >
-                  Update Days From Schedule
-                </Button>
+                <a href={`/schedule/${room.schedule.id}`}>
+                  #{room.schedule.id}
+                </a>
+                <div>
+                  <Button
+                    disabled={
+                      (this.state.schedules || {})[room.schedule.id].updated ===
+                      room.schedule.updated
+                    }
+                    onClick={() =>
+                      firebase.setRoomSchedule(
+                        roomId,
+                        (this.state.schedules || {})[room.schedule.id]
+                      )
+                    }
+                  >
+                    Update Days From Schedule
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

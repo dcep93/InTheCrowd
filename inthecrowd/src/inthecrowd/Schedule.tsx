@@ -46,6 +46,58 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
               </Button>
             </div>
             <div className={css.bubble}>
+              <h3>Colors</h3>
+              <div className={css.courier}>
+                <div>
+                  <label>solo</label>
+                  {"   "}
+                  <TextEditor
+                    defaultValue={this.state.colors?.solo || "black"}
+                    submit={(solo) => {
+                      Object.assign(this.state as ScheduleType, {
+                        colors: Object.assign(this.state.colors || {}, {
+                          solo,
+                        }),
+                      });
+                      this.updateFirebase();
+                      return false;
+                    }}
+                  />
+                </div>
+                <div>
+                  <label>group</label>
+                  {"  "}
+                  <TextEditor
+                    defaultValue={this.state.colors?.group || "blue"}
+                    submit={(group) => {
+                      Object.assign(this.state as ScheduleType, {
+                        colors: Object.assign(this.state.colors || {}, {
+                          group,
+                        }),
+                      });
+                      this.updateFirebase();
+                      return false;
+                    }}
+                  />
+                </div>
+                <div>
+                  <label>others</label>{" "}
+                  <TextEditor
+                    defaultValue={this.state.colors?.others || "red"}
+                    submit={(others) => {
+                      Object.assign(this.state as ScheduleType, {
+                        colors: Object.assign(this.state.colors || {}, {
+                          others,
+                        }),
+                      });
+                      this.updateFirebase();
+                      return false;
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={css.bubble}>
               <h3>Day Image URLs</h3>
               {(this.state.days || []).map((day, i) => (
                 <div key={i} className={css.courier}>

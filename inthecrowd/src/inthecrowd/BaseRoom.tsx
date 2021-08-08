@@ -1,6 +1,11 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import firebase, { RoomType, UserSlotType, UserType } from "./firebase";
+import firebase, {
+  RoomType,
+  ScheduleType,
+  UserSlotType,
+  UserType,
+} from "./firebase";
 import Lineup from "./Lineup";
 
 const MAX_VOTES = 2;
@@ -29,7 +34,8 @@ class BaseRoom extends React.Component<
             imgClick: () => null,
             slotClick: this.slotClick.bind(this),
             getOpacity: this.getOpacity.bind(this),
-            getSelectedColor: this.getSelectedColor.bind(this),
+            getSelectedColor: (slotKey) =>
+              this.getSelectedColor(slotKey, this.state.schedule),
             getContents: this.getContents.bind(this),
           }}
         />
@@ -113,18 +119,18 @@ class BaseRoom extends React.Component<
       .reduce((a, b) => a + b, 0);
   }
 
-  getSelectedColor(slotKey: string): string {
+  getSelectedColor(slotKey: string, schedule: ScheduleType): string {
     const mySelected = this.getMySelected(slotKey);
     const totalSelected = this.getTotalSelected(slotKey);
     if (mySelected > 0) {
       if (totalSelected > mySelected) {
-        return "blue";
+        return schedule.colors?.group || "blue";
       } else {
-        return "black";
+        return schedule.colors?.solo || "black";
       }
     } else {
       if (totalSelected > 0) {
-        return "red";
+        return schedule.colors?.others || "red";
       } else {
         return "";
       }

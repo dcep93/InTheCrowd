@@ -32,8 +32,9 @@ export type ScheduleType = {
   id: string;
   name: string;
   creator: string;
-  days?: DayType[];
   updated: number;
+  days?: DayType[];
+  colors?: { solo: string; group: string; others: string };
 };
 
 export type UsageType = {
