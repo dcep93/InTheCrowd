@@ -70,6 +70,21 @@ class BaseRoom extends React.Component<
     return s.users[this.props.userId];
   }
 
+  location(slotKey: string) {
+    return (
+      <Modal.Footer>
+        {this.getMe()[slotKey]?.location && (
+          <Button onClick={() => this.hideLocation(slotKey)}>
+            Hide Location
+          </Button>
+        )}
+        <Button onClick={() => this.shareLocation(slotKey)}>
+          Share Location
+        </Button>
+      </Modal.Footer>
+    );
+  }
+
   shareLocation(slotKey: string) {
     if (!navigator.geolocation) return alert("cannot get geolocation");
     const me = this.getMe();
@@ -83,6 +98,11 @@ class BaseRoom extends React.Component<
       });
       this.updateMyFirebase();
     });
+  }
+
+  hideLocation(slotKey: string) {
+    delete this.getMe()[slotKey].location;
+    this.updateMyFirebase();
   }
 
   getMySelected(slotKey: string): number {
@@ -143,9 +163,7 @@ class BaseRoom extends React.Component<
         contents={`${this.getMySelected(slotKey)}/${this.getTotalSelected(
           slotKey
         )}`}
-        shareLocation={
-          this.props.readOnly ? undefined : () => this.shareLocation(slotKey)
-        }
+        location={this.props.readOnly ? undefined : this.location(slotKey)}
         modalContents={this.getModalContents(slotKey)}
       />
     );
@@ -177,8 +195,8 @@ class BaseRoom extends React.Component<
 
 function GetContents(props: {
   contents: string;
-  shareLocation?: () => void;
   modalContents: ReactElement;
+  location?: ReactElement;
 }) {
   const [show, update] = useState(false);
   return (
@@ -194,11 +212,7 @@ function GetContents(props: {
       <div onClick={(e) => e.stopPropagation()}>
         <Modal show={show} onHide={() => update(false)}>
           <Modal.Body>{props.modalContents}</Modal.Body>
-          {props.shareLocation && (
-            <Modal.Footer>
-              <Button onClick={props.shareLocation}>Share Location</Button>
-            </Modal.Footer>
-          )}
+          {props.location}
         </Modal>
       </div>
     </>
