@@ -22,9 +22,7 @@ function LNav(props: { userId?: string; extra?: ReactElement }) {
               Logout
             </Nav.Link>
             {props.extra}
-            <Navbar.Brand href={"/room"}>
-              {props.userId || getUserId()}
-            </Navbar.Brand>
+            <Navbar.Brand>{props.userId || getUserId()}</Navbar.Brand>
           </Nav>
         </Navbar.Collapse>
       </Container>

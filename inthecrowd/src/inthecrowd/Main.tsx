@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import MyRooms from "./MyRooms";
 import NewRoom from "./NewRoom";
 import Room from "./Room";
 import Schedule from "./Schedule";
@@ -63,7 +62,6 @@ function LoggedInMain() {
             path={`/room/:roomId`}
             render={(props) => <Room roomId={props.match.params.roomId} />}
           />
-          <Route path={`/room`} render={() => <MyRooms />} />
           <Route path={`/usage`} render={() => <Usage />} />
           <Route path={`*`} render={() => "404 not found"} />
         </Switch>

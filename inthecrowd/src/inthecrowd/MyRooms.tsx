@@ -2,7 +2,6 @@ import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
 import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
-import LNav from "./LNav";
 import { getUserId } from "./Main";
 
 class MyRooms extends React.Component<{}, MainType> {
@@ -15,8 +14,7 @@ class MyRooms extends React.Component<{}, MainType> {
     document.title = "InTheCrowd";
     const userId = getUserId();
     return (
-      <>
-        <LNav />
+      <div>
         {Object.entries(this.state.rooms || {})
           .filter(
             ([roomId, room]) =>
@@ -58,7 +56,7 @@ class MyRooms extends React.Component<{}, MainType> {
               </div>
             </div>
           ))}
-      </>
+      </div>
     );
   }
 }

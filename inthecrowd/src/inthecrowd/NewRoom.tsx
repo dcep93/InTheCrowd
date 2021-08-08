@@ -3,6 +3,7 @@ import firebase, { ScheduleType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 import { getUserId, randomKey } from "./Main";
+import MyRooms from "./MyRooms";
 
 class NewRoom extends React.Component<
   {},
@@ -53,6 +54,7 @@ class NewRoom extends React.Component<
             </div>
           </div>
         </div>
+        <MyRooms />
       </>
     );
   }
