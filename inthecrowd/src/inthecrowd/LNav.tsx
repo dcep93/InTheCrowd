@@ -58,14 +58,9 @@ function help() {
           can also provide your GPS location for others to see.
         </div>
         <div>
-          The darkness of a show represents the number of votes it has. If a
-          show is colored:{" "}
-          <ul>
-            <li>white = it has no votes</li>
-            <li>blue = you gave it votes, along with others</li>
-            <li>black = you are the only with votes</li>
-            <li>red = only other people gave votes</li>
-          </ul>
+          The darkness of a show represents the number of votes it has. The
+          color represents whether no one is going, you're the only one going,
+          other people are going without you, or you're going with others.
         </div>
       </Modal.Body>
       <Modal.Header></Modal.Header>
@@ -76,7 +71,7 @@ function help() {
         <div>
           This app only uses self-reported local storage to determine your name.
           Enter whatever you want, but if multiple people pick the same name,
-          they will collide.
+          they will collide. Someday google login might be implemented.
         </div>
       </Modal.Body>
       <Modal.Header></Modal.Header>
@@ -119,17 +114,6 @@ function help() {
           same name as the schedule. If you want a different room name, go back
           to the home page, use the schedule you made, and give your room a
           custom name.
-        </div>
-      </Modal.Body>
-      <Modal.Header></Modal.Header>
-      <Modal.Header>
-        <h3>Find a Room</h3>
-      </Modal.Header>
-      <Modal.Body>
-        <div>
-          Click your username in the header to see rooms that you've
-          participated in. You can edit a room's name or update the schedule for
-          a room.
         </div>
       </Modal.Body>
       <Modal.Header></Modal.Header>
