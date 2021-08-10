@@ -8,7 +8,7 @@ import firebase, {
 } from "./firebase";
 import Lineup from "./Lineup";
 
-const MAX_VOTES = 2;
+const MAX_VOTES = 3;
 
 class BaseRoom extends React.Component<
   { roomId: string; userId: string; readOnly?: boolean },
