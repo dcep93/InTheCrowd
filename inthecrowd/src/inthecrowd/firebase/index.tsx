@@ -104,7 +104,7 @@ function connectSchedule(
 function updateSchedule(scheduleId: string, schedule: ScheduleType) {
   setWrapper(
     `/schedules/${scheduleId}`,
-    Object.assign({ updated: new Date().getTime() }, schedule)
+    Object.assign({}, schedule, { updated: new Date().getTime() })
   );
 }
 
