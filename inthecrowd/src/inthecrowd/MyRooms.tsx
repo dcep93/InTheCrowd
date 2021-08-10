@@ -4,19 +4,13 @@ import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
 import { getUserId, mapSort } from "./Main";
 
-class MyRooms extends React.Component<{}, MainType> {
-  componentDidMount() {
-    firebase.connectMain(this.setState.bind(this));
-  }
-
+class MyRooms extends React.Component<{ main: MainType }> {
   render() {
-    if (!this.state) return null;
-    document.title = "InTheCrowd";
     const userId = getUserId();
     return (
       <div>
         {mapSort(
-          Object.values(this.state.rooms || {}).filter(
+          Object.values(this.props.main.rooms || {}).filter(
             (room) => room.creator === userId || (room.users || {})[userId]
           ),
           (room) => room.schedule.updated
@@ -38,13 +32,13 @@ class MyRooms extends React.Component<{}, MainType> {
               <div>
                 <Button
                   disabled={
-                    (this.state.schedules || {})[room.schedule.id].updated ===
-                    room.schedule.updated
+                    (this.props.main.schedules || {})[room.schedule.id]
+                      .updated === room.schedule.updated
                   }
                   onClick={() =>
                     firebase.setRoomSchedule(
                       room.id,
-                      (this.state.schedules || {})[room.schedule.id]
+                      (this.props.main.schedules || {})[room.schedule.id]
                     )
                   }
                 >

@@ -78,7 +78,7 @@ function LoggedInMain() {
 }
 
 function login() {
-  const userId = prompt("enter your name");
+  const userId = prompt("enter your name")?.toLowerCase();
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ userId }));
   window.location.reload();
 }

@@ -111,7 +111,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                         day.img = update;
                       }
                       this.updateFirebase();
-                      return true;
+                      return !update;
                     }}
                   />
                 </div>

@@ -90,12 +90,6 @@ function setRoomName(roomId: string, name: string) {
   setWrapper(`/rooms/${roomId}/name`, name);
 }
 
-function connectSchedules(
-  setState: (schedules: { [scheduleId: string]: ScheduleType }) => void
-) {
-  firebase._connect("/schedules", (val) => setState(val || {}));
-}
-
 function createRoom(roomId: string, room: RoomType) {
   setWrapper(`/rooms/${roomId}`, room, `create`);
 }
@@ -124,7 +118,6 @@ const ex = {
   connectMain,
   setRoomSchedule,
   setRoomName,
-  connectSchedules,
   connectUsage,
   createRoom,
   updateSchedule,

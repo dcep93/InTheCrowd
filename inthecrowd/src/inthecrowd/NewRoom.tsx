@@ -1,16 +1,13 @@
 import React, { RefObject } from "react";
-import firebase, { ScheduleType } from "./firebase";
+import firebase, { MainType, ScheduleType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 import { getUserId, mapSort, randomKey } from "./Main";
 import MyRooms from "./MyRooms";
 
-class NewRoom extends React.Component<
-  {},
-  { [scheduleId: string]: ScheduleType }
-> {
+class NewRoom extends React.Component<{}, MainType> {
   componentDidMount() {
-    firebase.connectSchedules(this.setState.bind(this));
+    firebase.connectMain(this.setState.bind(this));
   }
 
   selectRef: RefObject<HTMLSelectElement> = React.createRef();
@@ -25,10 +22,12 @@ class NewRoom extends React.Component<
           <div className={css.bubble}>
             <select ref={this.selectRef} onChange={() => this.forceUpdate()}>
               {mapSort(
-                Object.entries(this.state).map(([scheduleId, schedule]) => ({
-                  scheduleId,
-                  schedule,
-                })),
+                Object.entries(this.state.schedules || {}).map(
+                  ([scheduleId, schedule]) => ({
+                    scheduleId,
+                    schedule,
+                  })
+                ),
                 (obj) => obj.schedule.updated
               ).map(({ scheduleId, schedule }) => (
                 <option key={scheduleId} value={scheduleId}>
@@ -57,14 +56,14 @@ class NewRoom extends React.Component<
             </div>
           </div>
         </div>
-        <MyRooms />
+        <MyRooms main={this.state} />
       </>
     );
   }
 
   createRoom() {
     const scheduleId = this.selectRef.current!.value;
-    const schedule = this.state[scheduleId];
+    const schedule = this.state.schedules![scheduleId];
     createRoom(this.inputRef.current!.value || schedule.name, schedule);
   }
 }
