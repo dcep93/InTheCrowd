@@ -1,22 +1,9 @@
 import { getUserId } from "../Main";
 import firebase from "./firebase";
 
-// todo optional types
-export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
-
-export type DayType = {
-  img: string;
-  width: string;
-  slots?: { [slotKey: string]: SlotCoordsType };
-};
-
-export type UserType = {
-  [slotKey: string]: UserSlotType;
-};
-
-export type UserSlotType = {
-  selected: number;
-  location?: { lat: string; long: string; timestamp: number };
+export type MainType = {
+  rooms?: { [roomId: string]: RoomType };
+  schedules?: { [scheduleId: string]: ScheduleType };
 };
 
 export type RoomType = {
@@ -36,16 +23,28 @@ export type ScheduleType = {
   colors?: { solo: string; group: string; others: string };
 };
 
+export type DayType = {
+  img: string;
+  width: string;
+  slots?: { [slotKey: string]: SlotCoordsType };
+};
+
+export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
+
+export type UserType = {
+  [slotKey: string]: UserSlotType;
+};
+
+export type UserSlotType = {
+  selected: number;
+  location?: { lat: string; long: string; timestamp: number };
+};
+
 export type UsageType = {
   userId: string;
   path: string;
   timestamp: string;
   message: string;
-};
-
-export type MainType = {
-  rooms?: { [roomId: string]: RoomType };
-  schedules?: { [scheduleId: string]: ScheduleType };
 };
 
 declare global {
