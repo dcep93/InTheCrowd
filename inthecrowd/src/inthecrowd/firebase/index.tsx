@@ -25,7 +25,6 @@ export type RoomType = {
   creator: string;
   schedule: ScheduleType;
   users?: { [userId: string]: UserType };
-  days?: DayType[];
 };
 
 export type ScheduleType = {

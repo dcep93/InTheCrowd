@@ -74,7 +74,6 @@ export function createRoom(name: string, schedule: ScheduleType) {
   const room = {
     id,
     name,
-    days: schedule.days,
     creator,
     schedule,
     users: {},
