@@ -56,6 +56,7 @@ declare global {
 }
 window.firebaseinitialized = false;
 if (!window.firebaseinitialized) {
+  window.firebaseinitialized = true;
   firebase._init();
 }
 
