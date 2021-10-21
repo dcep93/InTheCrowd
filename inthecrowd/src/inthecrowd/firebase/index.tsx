@@ -37,7 +37,7 @@ export type UserType = {
 
 export type UserSlotType = {
   selected: number;
-  location?: { lat: string; long: string; timestamp: number };
+  location?: { lat?: string; long?: string; timestamp: number };
 };
 
 export type UsageType = {

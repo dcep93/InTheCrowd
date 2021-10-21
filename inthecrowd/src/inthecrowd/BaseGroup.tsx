@@ -92,6 +92,12 @@ class BaseGroup extends React.Component<
   shareLocation(slotKey: string) {
     if (!navigator.geolocation) return alert("cannot get geolocation");
     const me = this.getMe();
+    me[slotKey] = Object.assign(me[slotKey] || {}, {
+      location: {
+        timestamp: new Date().getTime(),
+      },
+    });
+    this.updateMyFirebase();
     navigator.geolocation.getCurrentPosition((position) => {
       me[slotKey] = Object.assign(me[slotKey] || {}, {
         location: {
@@ -180,15 +186,20 @@ class BaseGroup extends React.Component<
           ([userId, selected]) => (
             <div key={userId}>
               {userId} {selected.selected}{" "}
-              {selected.location && (
-                <a
-                  href={`https://maps.google.com?q=${selected.location.lat},${selected.location.long}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {new Date(selected.location.timestamp).toLocaleTimeString()}
-                </a>
-              )}
+              {selected.location &&
+                (selected.location.lat === undefined ? (
+                  <span>
+                    {new Date(selected.location.timestamp).toLocaleTimeString()}
+                  </span>
+                ) : (
+                  <a
+                    href={`https://maps.google.com?q=${selected.location.lat},${selected.location.long}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {new Date(selected.location.timestamp).toLocaleTimeString()}
+                  </a>
+                ))}
             </div>
           )
         )}
