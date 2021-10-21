@@ -18,11 +18,11 @@ class BaseGroup extends React.Component<
     firebase.connectGroup(this.props.groupId, this.setState.bind(this));
   }
 
-  updateMyFirebase() {
+  updateMyFirebase(me: UserType | null = null) {
     firebase.updateGroupUser(
       this.props.groupId,
       this.props.userId,
-      this.getMe()
+      me || this.getMe()
     );
   }
 
@@ -99,14 +99,14 @@ class BaseGroup extends React.Component<
     });
     this.updateMyFirebase();
     navigator.geolocation.getCurrentPosition((position) => {
-      me[slotKey] = Object.assign(me[slotKey] || {}, {
+      Object.assign(me[slotKey], {
         location: {
           lat: position.coords.latitude,
           long: position.coords.longitude,
           timestamp: position.timestamp,
         },
       });
-      this.updateMyFirebase();
+      this.updateMyFirebase(me);
     });
   }
 
