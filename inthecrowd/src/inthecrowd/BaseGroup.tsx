@@ -93,7 +93,7 @@ class BaseGroup extends React.Component<
     if (!navigator.geolocation) return alert("cannot get geolocation");
     const me = this.getMe();
     navigator.geolocation.getCurrentPosition((position) => {
-      me[slotKey] = Object.assign(me[slotKey], {
+      me[slotKey] = Object.assign(me[slotKey] || {}, {
         location: {
           lat: position.coords.latitude,
           long: position.coords.longitude,
