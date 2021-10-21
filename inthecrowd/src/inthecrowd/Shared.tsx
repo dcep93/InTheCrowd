@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { Nav } from "react-bootstrap";
-import BaseRoom from "./BaseRoom";
+import BaseGroup from "./BaseGroup";
 import LNav from "./LNav";
 
-function Shared(props: { userId: string; roomId: string }) {
+function Shared(props: { userId: string; groupId: string }) {
   return (
     <>
       <LNav
@@ -12,9 +12,9 @@ function Shared(props: { userId: string; roomId: string }) {
         extra={
           <>
             <Nav.Link
-              onClick={() => (window.location.href = `/room/${props.roomId}`)}
+              onClick={() => (window.location.href = `/group/${props.groupId}`)}
             >
-              Room
+              Group
             </Nav.Link>
             <Nav.Link
               onClick={() => window.open("https://screenshot.guru", "_blank")}
@@ -24,7 +24,11 @@ function Shared(props: { userId: string; roomId: string }) {
           </>
         }
       />
-      <BaseRoom roomId={props.roomId} userId={props.userId} readOnly={true} />
+      <BaseGroup
+        groupId={props.groupId}
+        userId={props.userId}
+        readOnly={true}
+      />
     </>
   );
 }

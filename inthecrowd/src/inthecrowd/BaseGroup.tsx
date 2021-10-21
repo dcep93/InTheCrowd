@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import firebase, {
-  RoomType,
+  GroupType,
   ScheduleType,
   UserSlotType,
   UserType,
@@ -10,16 +10,20 @@ import Lineup from "./Lineup";
 
 const MAX_VOTES = 3;
 
-class BaseRoom extends React.Component<
-  { roomId: string; userId: string; readOnly?: boolean },
-  RoomType
+class BaseGroup extends React.Component<
+  { groupId: string; userId: string; readOnly?: boolean },
+  GroupType
 > {
   componentDidMount() {
-    firebase.connectRoom(this.props.roomId, this.setState.bind(this));
+    firebase.connectGroup(this.props.groupId, this.setState.bind(this));
   }
 
   updateMyFirebase() {
-    firebase.updateRoomUser(this.props.roomId, this.props.userId, this.getMe());
+    firebase.updateGroupUser(
+      this.props.groupId,
+      this.props.userId,
+      this.getMe()
+    );
   }
 
   render() {
@@ -64,7 +68,7 @@ class BaseRoom extends React.Component<
   }
 
   getMe(): UserType {
-    const s = this.state as RoomType;
+    const s = this.state as GroupType;
     if (!s.users) s.users = {};
     if (!s.users[this.props.userId]) s.users[this.props.userId] = {};
     return s.users[this.props.userId];
@@ -219,4 +223,4 @@ function GetContents(props: {
   );
 }
 
-export default BaseRoom;
+export default BaseGroup;

@@ -5,7 +5,7 @@ import css from "./index.module.css";
 import Lineup from "./Lineup";
 import LNav from "./LNav";
 import { getUserId, randomKey } from "./Main";
-import { createRoom } from "./NewRoom";
+import { createGroup } from "./NewGroup";
 
 class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   componentDidMount() {
@@ -41,8 +41,8 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                 }}
               />
               <div>#{this.props.scheduleId}</div>
-              <Button onClick={() => createRoom(this.state.name, this.state)}>
-                Create Room
+              <Button onClick={() => createGroup(this.state.name, this.state)}>
+                Create Group
               </Button>
             </div>
             <div className={css.bubble}>

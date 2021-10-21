@@ -76,11 +76,11 @@ function help() {
       </Modal.Body>
       <Modal.Header></Modal.Header>
       <Modal.Header>
-        <h3>Sharing a Room</h3>
+        <h3>Sharing a Group</h3>
       </Modal.Header>
       <Modal.Body>
         <div>
-          You can send a link of the room to anyone! They can login and click
+          You can send a link of the group to anyone! They can login and click
           around to see your shows. If you want someone to easily see your
           personal schedule, press the share button and send them that link. You
           can also use screenshot.guru to get a rendered picture of your
@@ -89,13 +89,13 @@ function help() {
       </Modal.Body>
       <Modal.Header></Modal.Header>
       <Modal.Header>
-        <h3>Creating a Room</h3>
+        <h3>Creating a Group</h3>
       </Modal.Header>
       <Modal.Body>
         <div>
           On the homepage, you can select an existing schedule and give your
-          room a name. Then, send that link to your festival group. You cannot
-          disallow people from joining rooms.
+          group a name. Then, send that link to your festival group. You cannot
+          disallow people from joining groups.
         </div>
       </Modal.Body>
       <Modal.Header></Modal.Header>
@@ -110,9 +110,9 @@ function help() {
           Then you need to define time slots. Click the desired upper left
           corner, then the lower right corner. Clicking an existing slot will
           delete it. Deleting an image url will delete all its slots and cannot
-          be recovered. Creating a room from a schedule will give the room the
-          same name as the schedule. If you want a different room name, go back
-          to the home page, use the schedule you made, and give your room a
+          be recovered. Creating a group from a schedule will give the group the
+          same name as the schedule. If you want a different group name, go back
+          to the home page, use the schedule you made, and give your group a
           custom name.
         </div>
       </Modal.Body>

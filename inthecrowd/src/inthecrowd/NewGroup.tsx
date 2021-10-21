@@ -3,9 +3,9 @@ import firebase, { MainType, ScheduleType } from "./firebase";
 import css from "./index.module.css";
 import LNav from "./LNav";
 import { getUserId, mapSort, randomKey } from "./Main";
-import MyRooms from "./MyRooms";
+import MyGroups from "./MyGroups";
 
-class NewRoom extends React.Component<{}, MainType> {
+class NewGroup extends React.Component<{}, MainType> {
   componentDidMount() {
     firebase.connectMain(this.setState.bind(this));
   }
@@ -48,38 +48,38 @@ class NewRoom extends React.Component<{}, MainType> {
             <div>
               <input type={"text"} ref={this.inputRef} defaultValue={""} />
               <button
-                onClick={this.createRoom.bind(this)}
+                onClick={this.createGroup.bind(this)}
                 disabled={this.selectRef.current?.value === ""}
               >
-                Create Room
+                Create Group
               </button>
             </div>
           </div>
         </div>
-        <MyRooms main={this.state} />
+        <MyGroups main={this.state} />
       </>
     );
   }
 
-  createRoom() {
+  createGroup() {
     const scheduleId = this.selectRef.current!.value;
     const schedule = this.state.schedules![scheduleId];
-    createRoom(this.inputRef.current!.value || schedule.name, schedule);
+    createGroup(this.inputRef.current!.value || schedule.name, schedule);
   }
 }
 
-export function createRoom(name: string, schedule: ScheduleType) {
+export function createGroup(name: string, schedule: ScheduleType) {
   const creator = getUserId();
   const id = randomKey().toString();
-  const room = {
+  const group = {
     id,
     name,
     creator,
     schedule,
     users: {},
   };
-  firebase.createRoom(id, room);
-  window.location.href = `/room/${id}`;
+  firebase.createGroup(id, group);
+  window.location.href = `/group/${id}`;
 }
 
-export default NewRoom;
+export default NewGroup;

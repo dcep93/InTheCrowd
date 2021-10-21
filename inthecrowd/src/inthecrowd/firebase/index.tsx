@@ -2,11 +2,11 @@ import { getUserId } from "../Main";
 import firebase from "./firebase";
 
 export type MainType = {
-  rooms?: { [roomId: string]: RoomType };
+  groups?: { [groupId: string]: GroupType };
   schedules?: { [scheduleId: string]: ScheduleType };
 };
 
-export type RoomType = {
+export type GroupType = {
   id: string;
   name: string;
   creator: string;
@@ -70,28 +70,28 @@ function setWrapper(path: string, obj: any, message: string = "") {
   firebase._push("/usage", usage);
 }
 
-function connectRoom(roomId: string, setState: (room: RoomType) => void) {
-  firebase._connect(`/rooms/${roomId}`, (val) => setState(val || {}));
+function connectGroup(groupId: string, setState: (group: GroupType) => void) {
+  firebase._connect(`/groups/${groupId}`, (val) => setState(val || {}));
 }
 
-function updateRoomUser(roomId: string, userId: string, user: UserType) {
-  setWrapper(`/rooms/${roomId}/users/${userId}`, user);
+function updateGroupUser(groupId: string, userId: string, user: UserType) {
+  setWrapper(`/groups/${groupId}/users/${userId}`, user);
 }
 
 function connectMain(setState: (main: MainType) => void) {
   firebase._connect("/", (val) => setState(val || {}));
 }
 
-function setRoomSchedule(roomId: string, schedule: ScheduleType) {
-  setWrapper(`/rooms/${roomId}/schedule`, schedule);
+function setGroupSchedule(groupId: string, schedule: ScheduleType) {
+  setWrapper(`/groups/${groupId}/schedule`, schedule);
 }
 
-function setRoomName(roomId: string, name: string) {
-  setWrapper(`/rooms/${roomId}/name`, name);
+function setGroupName(groupId: string, name: string) {
+  setWrapper(`/groups/${groupId}/name`, name);
 }
 
-function createRoom(roomId: string, room: RoomType) {
-  setWrapper(`/rooms/${roomId}`, room, `create`);
+function createGroup(groupId: string, group: GroupType) {
+  setWrapper(`/groups/${groupId}`, group, `create`);
 }
 
 function connectSchedule(
@@ -113,13 +113,13 @@ function connectUsage(setState: (usage: { [key: string]: UsageType }) => void) {
 }
 
 const ex = {
-  connectRoom,
-  updateRoomUser,
+  connectGroup,
+  updateGroupUser,
   connectMain,
-  setRoomSchedule,
-  setRoomName,
+  setGroupSchedule,
+  setGroupName,
   connectUsage,
-  createRoom,
+  createGroup,
   updateSchedule,
   connectSchedule,
 };

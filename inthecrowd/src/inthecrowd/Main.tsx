@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NewRoom from "./NewRoom";
-import Room from "./Room";
+import Group from "./Group";
+import NewGroup from "./NewGroup";
 import Schedule from "./Schedule";
 import Shared from "./Shared";
 import Usage from "./Usage";
@@ -34,10 +34,10 @@ function Main() {
       <Switch>
         <Route
           exact
-          path={`/room/:roomId/user/:userId`}
+          path={`/group/:groupId/user/:userId`}
           render={(props) => (
             <Shared
-              roomId={props.match.params.roomId}
+              groupId={props.match.params.groupId}
               userId={props.match.params.userId}
             />
           )}
@@ -58,7 +58,7 @@ function LoggedInMain() {
     <Router>
       <div>
         <Switch>
-          <Route exact path={`/`} render={() => <NewRoom />} />
+          <Route exact path={`/`} render={() => <NewGroup />} />
           <Route
             path={`/schedule/:scheduleId`}
             render={(props) => (
@@ -66,8 +66,8 @@ function LoggedInMain() {
             )}
           />
           <Route
-            path={`/room/:roomId`}
-            render={(props) => <Room roomId={props.match.params.roomId} />}
+            path={`/group/:groupId`}
+            render={(props) => <Group groupId={props.match.params.groupId} />}
           />
           <Route path={`/usage`} render={() => <Usage />} />
           <Route path={`*`} render={() => "404 not found"} />

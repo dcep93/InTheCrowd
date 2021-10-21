@@ -1,10 +1,10 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import BaseRoom from "./BaseRoom";
+import BaseGroup from "./BaseGroup";
 import LNav from "./LNav";
 import { getUserId } from "./Main";
 
-function Room(props: { roomId: string }) {
+function Group(props: { groupId: string }) {
   const userId = getUserId();
   return (
     <>
@@ -12,7 +12,7 @@ function Room(props: { roomId: string }) {
         extra={
           <Nav.Link
             onClick={() =>
-              (window.location.href = `/room/${props.roomId}/user/${userId}`)
+              (window.location.href = `/group/${props.groupId}/user/${userId}`)
             }
           >
             Share
@@ -20,9 +20,9 @@ function Room(props: { roomId: string }) {
         }
       />
 
-      <BaseRoom roomId={props.roomId} userId={userId} />
+      <BaseGroup groupId={props.groupId} userId={userId} />
     </>
   );
 }
 
-export default Room;
+export default Group;

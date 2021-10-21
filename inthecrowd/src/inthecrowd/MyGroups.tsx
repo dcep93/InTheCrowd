@@ -4,41 +4,43 @@ import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
 import { getUserId, mapSort } from "./Main";
 
-class MyRooms extends React.Component<{ main: MainType }> {
+class MyGroups extends React.Component<{ main: MainType }> {
   render() {
     const userId = getUserId();
     return (
       <div>
         {mapSort(
-          Object.values(this.props.main.rooms || {}).filter(
-            (room) => room.creator === userId || (room.users || {})[userId]
+          Object.values(this.props.main.groups || {}).filter(
+            (group) => group.creator === userId || (group.users || {})[userId]
           ),
-          (room) => room.schedule.updated
-        ).map((room) => (
-          <div key={room.id} className={css.bubble}>
+          (group) => group.schedule.updated
+        ).map((group) => (
+          <div key={group.id} className={css.bubble}>
             <div>
               <TextEditor
-                defaultValue={room.name}
-                submit={(val) => firebase.setRoomName(room.id, val)}
+                defaultValue={group.name}
+                submit={(val) => firebase.setGroupName(group.id, val)}
               />
             </div>
             <div>
-              <a href={`/room/${room.id}`}>#{room.id}</a>
+              <a href={`/group/${group.id}`}>#{group.id}</a>
             </div>
-            <div>by {room.creator}</div>
+            <div>by {group.creator}</div>
             <div className={css.bubble}>
-              <h5>{room.schedule.name}</h5>
-              <a href={`/schedule/${room.schedule.id}`}>#{room.schedule.id}</a>
+              <h5>{group.schedule.name}</h5>
+              <a href={`/schedule/${group.schedule.id}`}>
+                #{group.schedule.id}
+              </a>
               <div>
                 <Button
                   disabled={
-                    (this.props.main.schedules || {})[room.schedule.id]
-                      .updated === room.schedule.updated
+                    (this.props.main.schedules || {})[group.schedule.id]
+                      .updated === group.schedule.updated
                   }
                   onClick={() =>
-                    firebase.setRoomSchedule(
-                      room.id,
-                      (this.props.main.schedules || {})[room.schedule.id]
+                    firebase.setGroupSchedule(
+                      group.id,
+                      (this.props.main.schedules || {})[group.schedule.id]
                     )
                   }
                 >
@@ -84,4 +86,4 @@ class TextEditor extends React.Component<PropsType> {
   }
 }
 
-export default MyRooms;
+export default MyGroups;
