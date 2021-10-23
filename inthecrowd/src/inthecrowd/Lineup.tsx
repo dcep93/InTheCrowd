@@ -42,6 +42,7 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
       </div>
       <div className={css.day} hidden={hidden}>
         <img
+          className={css.img}
           alt={"missing"}
           src={props.day.img}
           onClick={(e) => props.dayProps.imgClick(props.i, e)}
