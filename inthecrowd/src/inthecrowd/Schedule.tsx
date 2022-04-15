@@ -151,11 +151,9 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
 
   badState?: { dayIndex: number; slotCorner: { x: number; y: number } };
   imgClick(dayIndex: number, e: React.MouseEvent) {
+    const slotCorner = { x: e.pageX, y: e.pageY };
     // @ts-ignore
-    const { x, y, width } = e.target;
-    const slotCorner = { x: e.clientX - x, y: e.clientY - y };
-    // @ts-ignore
-    slotCorner.y += e.target.offsetParent.offsetTop;
+    slotCorner.y -= e.target.offsetParent.offsetTop;
     if (dayIndex !== this.badState?.dayIndex) {
       this.badState = { dayIndex, slotCorner };
       return;
@@ -168,7 +166,8 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
       x2: slotCorner.x,
       y2: slotCorner.y,
     };
-    day.width = width;
+    // @ts-ignore
+    day.width = e.target.width;
     this.badState = undefined;
     this.updateFirebase();
   }
