@@ -154,6 +154,8 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
     // @ts-ignore
     const { x, y, width } = e.target;
     const slotCorner = { x: e.clientX - x, y: e.clientY - y };
+    // @ts-ignore
+    slotCorner.y += e.target.offsetParent.offsetTop;
     if (dayIndex !== this.badState?.dayIndex) {
       this.badState = { dayIndex, slotCorner };
       return;

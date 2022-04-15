@@ -37,6 +37,7 @@ function _connect(path: string, callback: (value: BlobType) => void): void {
 }
 
 function _set(path: string, obj: BlobType, message: string = ""): void {
+  console.log(path, obj, message);
   database.ref(`${BASE}/${path}`).set(obj);
 }
 
