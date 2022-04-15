@@ -41,7 +41,11 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                 }}
               />
               <div>#{this.props.scheduleId}</div>
-              <Button onClick={() => createGroup(this.state.name, this.state)}>
+              <Button
+                onClick={() =>
+                  createGroup(this.state.name || "group", this.state)
+                }
+              >
                 Create Group
               </Button>
             </div>
