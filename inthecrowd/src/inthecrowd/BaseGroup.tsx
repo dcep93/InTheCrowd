@@ -6,12 +6,14 @@ import firebase, {
   UserSlotType,
   UserType,
 } from "./firebase";
+import css from "./index.module.css";
 import Lineup from "./Lineup";
+import { getUserId } from "./Main";
 
 const MAX_VOTES = 3;
 
 class BaseGroup extends React.Component<
-  { groupId: string; userId: string; readOnly?: boolean },
+  { groupId: string; userId: string; shared?: boolean },
   GroupType
 > {
   componentDidMount() {
@@ -47,8 +49,8 @@ class BaseGroup extends React.Component<
     );
   }
 
-  slotClick(dayIndex: number, slotKey: string) {
-    if (this.props.readOnly) return;
+  slotClick(_dayIndex: number, slotKey: string) {
+    if (this.props.userId !== getUserId()) return;
     const me = this.getMe();
     if (!me[slotKey]) me[slotKey] = { selected: 0 };
     me[slotKey].selected = (me[slotKey].selected + 1) % (MAX_VOTES + 1);
@@ -144,6 +146,7 @@ class BaseGroup extends React.Component<
   }
 
   getTotalSelected(slotKey: string): number {
+    if (this.props.shared) return this.getMySelected(slotKey);
     return Object.values(this.getUserDictSlot(slotKey))
       .map((s) => s.selected || 0)
       .reduce((a, b) => a + b, 0);
@@ -168,12 +171,12 @@ class BaseGroup extends React.Component<
   }
 
   getContents(slotKey: string): any {
+    const stars = "⭐".repeat(this.getMySelected(slotKey));
+    if (this.props.shared) return stars;
     return (
       <GetContents
-        contents={`${this.getMySelected(slotKey)}/${this.getTotalSelected(
-          slotKey
-        )}`}
-        location={this.props.readOnly ? undefined : this.location(slotKey)}
+        contents={`${stars}/${this.getTotalSelected(slotKey)}`}
+        location={this.location(slotKey)}
         modalContents={this.getModalContents(slotKey)}
       />
     );
@@ -221,6 +224,7 @@ function GetContents(props: {
           e.stopPropagation();
           update(true);
         }}
+        className={css.clickable}
       >
         {props.contents}
       </div>

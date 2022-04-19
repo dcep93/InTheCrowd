@@ -24,11 +24,7 @@ function Shared(props: { userId: string; groupId: string }) {
           </>
         }
       />
-      <BaseGroup
-        groupId={props.groupId}
-        userId={props.userId}
-        readOnly={true}
-      />
+      <BaseGroup groupId={props.groupId} userId={props.userId} shared={true} />
     </>
   );
 }
