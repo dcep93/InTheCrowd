@@ -20,7 +20,7 @@ export type ScheduleType = {
   creator: string;
   updated: number;
   days?: DayType[];
-  colors?: { solo: string; group: string; others: string };
+  colors?: { solo: string; group: string; others: string; clickable: string };
 };
 
 export type DayType = {

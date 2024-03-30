@@ -1,11 +1,11 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
-import firebase, { ScheduleType } from "./firebase";
-import css from "./index.module.css";
-import Lineup from "./Lineup";
 import LNav from "./LNav";
+import Lineup from "./Lineup";
 import { getUserId, randomKey } from "./Main";
 import { createGroup } from "./NewGroup";
+import firebase, { ScheduleType } from "./firebase";
+import css from "./index.module.css";
 
 class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
   componentDidMount() {
@@ -92,6 +92,21 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                       Object.assign(this.state as ScheduleType, {
                         colors: Object.assign(this.state.colors || {}, {
                           others,
+                        }),
+                      });
+                      this.updateFirebase();
+                      return false;
+                    }}
+                  />
+                </div>
+                <div>
+                  <label>clickable</label>{" "}
+                  <TextEditor
+                    defaultValue={this.state.colors?.others || "blue"}
+                    submit={(clickable) => {
+                      Object.assign(this.state as ScheduleType, {
+                        colors: Object.assign(this.state.colors || {}, {
+                          clickable,
                         }),
                       });
                       this.updateFirebase();

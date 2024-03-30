@@ -1,68 +1,67 @@
 body {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
 .flex {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bubble {
-    display: inline-block;
-    border-radius: 1em;
-    border: 2px solid black;
-    padding: 0.7em;
-    margin: 0.5em;
+  display: inline-block;
+  border-radius: 1em;
+  border: 2px solid black;
+  padding: 0.7em;
+  margin: 0.5em;
 }
 
 .inline {
-    display: inline;
+  display: inline;
 }
 
 .courier {
-    font-family: "Courier New", Courier, monospace;
-    white-space: pre;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre;
 }
 
 .day {
-    position: relative;
+  position: relative;
 }
 
 .hideDay {
-    background-color: lightgray;
-    border: 2px solid black;
+  background-color: lightgray;
+  border: 2px solid black;
 }
 
 .slotWrapper {
-    position: absolute;
-    z-index: 1;
+  position: absolute;
+  z-index: 1;
 }
 
 .slot {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .slotCount {
-    z-index: 1;
-    position: absolute;
-    bottom: 0;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
 }
 
 .clickable {
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .logout {
-    z-index: 1;
-    position: absolute;
+  z-index: 1;
+  position: absolute;
 }
 
 .img {
-    -webkit-filter: grayscale(100%);
-    /* Safari 6.0 - 9.0 */
-    filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
 }

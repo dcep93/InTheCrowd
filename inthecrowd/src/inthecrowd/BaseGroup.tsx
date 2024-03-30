@@ -1,5 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import Lineup from "./Lineup";
+import { getUserId } from "./Main";
 import firebase, {
   GroupType,
   ScheduleType,
@@ -7,8 +9,6 @@ import firebase, {
   UserType,
 } from "./firebase";
 import css from "./index.module.css";
-import Lineup from "./Lineup";
-import { getUserId } from "./Main";
 
 const MAX_VOTES = 3;
 
@@ -178,6 +178,7 @@ class BaseGroup extends React.Component<
         contents={`${stars}/${this.getTotalSelected(slotKey)}`}
         location={this.location(slotKey)}
         modalContents={this.getModalContents(slotKey)}
+        clickableColor={this.state.schedule.colors?.clickable || "blue"}
       />
     );
   }
@@ -214,6 +215,7 @@ class BaseGroup extends React.Component<
 function GetContents(props: {
   contents: string;
   modalContents: ReactElement;
+  clickableColor: string;
   location?: ReactElement;
 }) {
   const [show, update] = useState(false);
@@ -225,6 +227,7 @@ function GetContents(props: {
           update(true);
         }}
         className={css.clickable}
+        style={{ color: clickableColor }}
       >
         {props.contents}
       </div>
