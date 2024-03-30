@@ -47,18 +47,6 @@ export type UsageType = {
   message: string;
 };
 
-declare global {
-  interface Window {
-    firebaseinitialized: boolean;
-  }
-}
-window.firebaseinitialized = false;
-if (!window.firebaseinitialized) {
-  window.firebaseinitialized = true;
-  // set userAgent to Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
-  firebase._init();
-}
-
 function setWrapper(path: string, obj: any, message: string = "") {
   firebase._set(path, obj);
   const usage: UsageType = {
