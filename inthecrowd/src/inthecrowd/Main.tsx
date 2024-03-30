@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Group from "./Group";
 import NewGroup from "./NewGroup";
 import Schedule from "./Schedule";
