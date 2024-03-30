@@ -54,7 +54,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
               <div className={css.courier}>
                 <div>
                   <label>solo</label>
-                  {"   "}
+                  {"      "}
                   <TextEditor
                     defaultValue={this.state.colors?.solo || "black"}
                     submit={(solo) => {
@@ -70,7 +70,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                 </div>
                 <div>
                   <label>group</label>
-                  {"  "}
+                  {"     "}
                   <TextEditor
                     defaultValue={this.state.colors?.group || "blue"}
                     submit={(group) => {
@@ -85,7 +85,8 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                   />
                 </div>
                 <div>
-                  <label>others</label>{" "}
+                  <label>others</label>
+                  {"    "}
                   <TextEditor
                     defaultValue={this.state.colors?.others || "red"}
                     submit={(others) => {
