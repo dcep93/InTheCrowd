@@ -227,7 +227,7 @@ function GetContents(props: {
           update(true);
         }}
         className={css.clickable}
-        style={{ color: clickableColor }}
+        style={{ color: props.clickableColor }}
       >
         {props.contents}
       </div>
