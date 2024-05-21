@@ -104,7 +104,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                 <div>
                   <label>clickable</label>{" "}
                   <TextEditor
-                    defaultValue={this.state.colors?.others || "blue"}
+                    defaultValue={this.state.colors?.clickable || "blue"}
                     submit={(clickable) => {
                       Object.assign(this.state as ScheduleType, {
                         colors: Object.assign(this.state.colors || {}, {
