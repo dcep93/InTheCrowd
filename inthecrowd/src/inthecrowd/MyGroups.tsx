@@ -1,8 +1,8 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
+import { getUserId, mapSort } from "./Main";
 import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
-import { getUserId, mapSort } from "./Main";
 
 class MyGroups extends React.Component<{ main: MainType }> {
   render() {
@@ -26,28 +26,30 @@ class MyGroups extends React.Component<{ main: MainType }> {
               <a href={`/group/${group.id}`}>group #{group.id}</a>
             </div>
             <div>by {group.creator}</div>
-            <div className={css.bubble}>
-              <h5>{group.schedule.name}</h5>
-              <a href={`/schedule/${group.schedule.id}`}>
-                schedule #{group.schedule.id}
-              </a>
-              <div>
-                <Button
-                  disabled={
-                    (this.props.main.schedules || {})[group.schedule.id]
-                      .updated === group.schedule.updated
-                  }
-                  onClick={() =>
-                    firebase.setGroupSchedule(
-                      group.id,
+            {group.schedule.creator !== userId ? null : (
+              <div className={css.bubble}>
+                <h5>{group.schedule.name}</h5>
+                <a href={`/schedule/${group.schedule.id}`}>
+                  schedule #{group.schedule.id}
+                </a>
+                <div>
+                  <Button
+                    disabled={
                       (this.props.main.schedules || {})[group.schedule.id]
-                    )
-                  }
-                >
-                  Update Days From Schedule
-                </Button>
+                        .updated === group.schedule.updated
+                    }
+                    onClick={() =>
+                      firebase.setGroupSchedule(
+                        group.id,
+                        (this.props.main.schedules || {})[group.schedule.id]
+                      )
+                    }
+                  >
+                    Update Days From Schedule
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ))}
       </div>
