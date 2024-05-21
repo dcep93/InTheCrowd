@@ -17,6 +17,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
       this.props.scheduleId,
       Object.assign({}, this.state, {
         id: this.props.scheduleId,
+        creator: getUserId(),
       })
     );
   }
