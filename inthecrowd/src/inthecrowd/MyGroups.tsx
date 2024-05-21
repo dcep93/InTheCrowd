@@ -26,7 +26,7 @@ class MyGroups extends React.Component<{ main: MainType }> {
               <a href={`/group/${group.id}`}>group #{group.id}</a>
             </div>
             <div>by {group.creator}</div>
-            {group.schedule.creator !== userId ? null : (
+            {group.schedule.creator === userId ? null : (
               <div className={css.bubble}>
                 <h5>{group.schedule.name}</h5>
                 <a href={`/schedule/${group.schedule.id}`}>
