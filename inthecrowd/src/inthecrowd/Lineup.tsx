@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import CachedImage from "./CachedImage";
+import Slot from "./Slot";
 import { DayType } from "./firebase";
 import css from "./index.module.css";
-import Slot from "./Slot";
 
 type DayProps = {
   getOpacity: (slotKey: string) => number;
@@ -41,13 +42,13 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
         {hidden ? "^" : "_"}
       </div>
       <div className={css.day} hidden={hidden}>
-        <img
+        <div
           className={css.img}
-          alt={"missing"}
-          src={props.day.img}
           onClick={(e) => props.dayProps.imgClick(props.i, e)}
           style={{ width: props.day.width }}
-        />
+        >
+          <CachedImage src={props.day.img} />
+        </div>
         <div>
           {Object.entries(props.day.slots || {}).map(([key, slotCoords]) => (
             <div
