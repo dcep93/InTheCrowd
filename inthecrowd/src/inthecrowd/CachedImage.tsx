@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-export default function CachedImage(props: { src: string }) {
+export default function CachedImage(props: {
+  src: string;
+  localCache?: boolean;
+}) {
   const [data, updateData] = useState<string | null>(null);
   caches.open("CachedImage").then((cache) =>
     Promise.resolve()
@@ -11,7 +14,7 @@ export default function CachedImage(props: { src: string }) {
           : fetch(props.src)
               .then((response) => response.clone())
               .then((clone) => {
-                cache.put(props.src, clone);
+                if (props.localCache) cache.put(props.src, clone);
                 return clone;
               })
       )
