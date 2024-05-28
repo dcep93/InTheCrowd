@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CachedImage from "./CachedImage";
+import CacheImages from "./CacheImages";
 import Slot from "./Slot";
 import { DayType } from "./firebase";
 import css from "./index.module.css";
@@ -16,6 +16,7 @@ function Lineup(props: {
   days: DayType[];
   dayProps: DayProps;
 }) {
+  CacheImages();
   return (
     <div>
       <div className={css.imgs}>
@@ -42,13 +43,13 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
         {hidden ? "^" : "_"}
       </div>
       <div className={css.day} hidden={hidden}>
-        <div
+        <img
           className={css.img}
+          alt={"missing"}
+          src={props.day.img}
           onClick={(e) => props.dayProps.imgClick(props.i, e)}
-          style={{ width: props.day.width }}
-        >
-          <CachedImage src={props.day.img} />
-        </div>
+          style={{ width: props.day.width, height: props.day.height }}
+        />
         <div>
           {Object.entries(props.day.slots || {}).map(([key, slotCoords]) => (
             <div
