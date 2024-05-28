@@ -11,7 +11,7 @@ export default function CachedImage(props: {
       .then((cachedResponse) =>
         cachedResponse
           ? cachedResponse
-          : fetch(props.src)
+          : fetch(props.src, { cache: "force-cache" })
               .then((response) => response.clone())
               .then((clone) => {
                 if (props.localCache) cache.put(props.src, clone);
