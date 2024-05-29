@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+export function warm() {
+  fetch("https://proxy420.appspot.com");
+}
+
 export default function CachedImage(props: {
   src: string;
   f: (data: string) => JSX.Element;

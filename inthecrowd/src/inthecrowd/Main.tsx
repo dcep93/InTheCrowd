@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { warm } from "./CachedImage";
 import Group from "./Group";
 import NewGroup from "./NewGroup";
 import Schedule from "./Schedule";
@@ -28,6 +29,7 @@ export function randomKey(
 }
 
 function Main() {
+  warm();
   return (
     <Router>
       <Switch>
