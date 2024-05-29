@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
+const PROXY_URL = "https://proxy420.appspot.com";
+
 export function warm() {
-  fetch("https://proxy420.appspot.com");
+  fetch(PROXY_URL);
 }
 
 export default function CachedImage(props: {
@@ -11,14 +13,13 @@ export default function CachedImage(props: {
   const CACHE_NAME = "CachedImage";
   const [data, updateData] = useState<string | undefined>(undefined);
   useEffect(() => {
-    console.log("effect", props.src);
     caches.open(CACHE_NAME).then((cache) =>
       cache
         .match(props.src)
         .then((cachedResponse) =>
           cachedResponse
             ? cachedResponse
-            : fetch("https://proxy420.appspot.com", {
+            : fetch(PROXY_URL, {
                 method: "POST",
                 body: JSON.stringify({
                   maxAgeMs: 30 * 24 * 60 * 60 * 1000,

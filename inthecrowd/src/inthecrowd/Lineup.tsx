@@ -41,10 +41,10 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
       >
         {hidden ? "^" : "_"}
       </div>
-      <div className={css.day} hidden={hidden}>
-        <CachedImage
-          src={props.day.img}
-          f={(data) => (
+      <CachedImage
+        src={props.day.img}
+        f={(data) => (
+          <div className={css.day} hidden={hidden}>
             <img
               className={css.img}
               alt={"missing"}
@@ -52,25 +52,29 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
               onClick={(e) => props.dayProps.imgClick(props.i, e)}
               style={{ width: props.day.width, height: props.day.height }}
             />
-          )}
-        />
 
-        <div>
-          {Object.entries(props.day.slots || {}).map(([key, slotCoords]) => (
-            <div
-              key={key}
-              onClick={() => props.dayProps.slotClick(props.i, key)}
-            >
-              <Slot
-                slotCoords={slotCoords}
-                getOpacity={() => props.dayProps.getOpacity(key)}
-                getSelectedColor={() => props.dayProps.getSelectedColor(key)}
-                getContents={() => props.dayProps.getContents(key)}
-              />
+            <div>
+              {Object.entries(props.day.slots || {}).map(
+                ([key, slotCoords]) => (
+                  <div
+                    key={key}
+                    onClick={() => props.dayProps.slotClick(props.i, key)}
+                  >
+                    <Slot
+                      slotCoords={slotCoords}
+                      getOpacity={() => props.dayProps.getOpacity(key)}
+                      getSelectedColor={() =>
+                        props.dayProps.getSelectedColor(key)
+                      }
+                      getContents={() => props.dayProps.getContents(key)}
+                    />
+                  </div>
+                )
+              )}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        )}
+      />
     </div>
   );
 }
