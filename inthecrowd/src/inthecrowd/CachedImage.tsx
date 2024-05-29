@@ -30,11 +30,10 @@ export default function CachedImage(props: {
                   "Content-Type": "application/json",
                 },
               }).then((networkResponse) => {
-                cache.put(props.src, networkResponse);
+                cache.put(props.src, networkResponse.clone());
                 return networkResponse;
               })
         )
-        .then((response) => response.clone())
         .then((response) => response.text())
         .then((data) => `data:image/jpeg;base64,${data}`)
         .then(updateData)
