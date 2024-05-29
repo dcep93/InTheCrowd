@@ -15,7 +15,7 @@ export default function CachedImage(props: {
   useEffect(() => {
     caches.open(CACHE_NAME).then((cache) =>
       cache
-        .match(props.src)
+        .match(`${props.src}`)
         .then((cachedResponse) =>
           cachedResponse
             ? cachedResponse
@@ -29,9 +29,9 @@ export default function CachedImage(props: {
                 headers: {
                   "Content-Type": "application/json",
                 },
-              }).then((networkResponse) => {
-                cache.put(props.src, networkResponse.clone());
-                return networkResponse;
+              }).then((response) => {
+                cache.put(props.src, response.clone());
+                return response;
               })
         )
         .then((response) => response.text())
