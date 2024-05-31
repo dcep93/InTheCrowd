@@ -11,7 +11,7 @@ class MyGroups extends React.Component<{ main: MainType }> {
       <div>
         {mapSort(
           Object.values(this.props.main.groups || {}).filter(
-            (group) => group.creator === userId || (group.users || {})[userId]
+            (group) => true || group.creator === userId || (group.users || {})[userId]
           ),
           (group) => group.schedule.updated
         ).map((group) => (
