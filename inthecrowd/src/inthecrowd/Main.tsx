@@ -93,4 +93,8 @@ export function getUserId(): string {
   return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}").userId;
 }
 
+export function isAdmin() {
+  return getUserId() === "daniel";
+}
+
 export default Main;

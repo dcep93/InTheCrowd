@@ -1,9 +1,9 @@
 import React, { RefObject } from "react";
+import LNav from "./LNav";
+import { getUserId, isAdmin, mapSort, randomKey } from "./Main";
+import MyGroups from "./MyGroups";
 import firebase, { MainType, ScheduleType } from "./firebase";
 import css from "./index.module.css";
-import LNav from "./LNav";
-import { getUserId, mapSort, randomKey } from "./Main";
-import MyGroups from "./MyGroups";
 
 class NewGroup extends React.Component<{}, MainType> {
   componentDidMount() {
@@ -34,17 +34,19 @@ class NewGroup extends React.Component<{}, MainType> {
                   {schedule.name}#{scheduleId}
                 </option>
               ))}
-              <option value={""}>new schedule</option>
+              {!isAdmin() ? null : <option value={""}>new schedule</option>}
             </select>
-            <button
-              onClick={() =>
-                (window.location.href = `/schedule/${
-                  this.selectRef.current!.value || randomKey()
-                }`)
-              }
-            >
-              Edit Schedule
-            </button>
+            {!isAdmin() ? null : (
+              <button
+                onClick={() =>
+                  (window.location.href = `/schedule/${
+                    this.selectRef.current!.value || randomKey()
+                  }`)
+                }
+              >
+                Edit Schedule
+              </button>
+            )}
             <div>
               <input type={"text"} ref={this.inputRef} defaultValue={""} />
               <button

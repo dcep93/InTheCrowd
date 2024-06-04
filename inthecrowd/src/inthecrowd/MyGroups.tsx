@@ -1,6 +1,6 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
-import { getUserId, mapSort } from "./Main";
+import { getUserId, isAdmin, mapSort } from "./Main";
 import firebase, { MainType } from "./firebase";
 import css from "./index.module.css";
 
@@ -11,7 +11,8 @@ class MyGroups extends React.Component<{ main: MainType }> {
       <div>
         {mapSort(
           Object.values(this.props.main.groups || {}).filter(
-            (group) => true || group.creator === userId || (group.users || {})[userId]
+            (group) =>
+              true || group.creator === userId || (group.users || {})[userId]
           ),
           (group) => group.schedule.updated
         ).map((group) => (
@@ -26,7 +27,7 @@ class MyGroups extends React.Component<{ main: MainType }> {
               <a href={`/group/${group.id}`}>group #{group.id}</a>
             </div>
             <div>by {group.creator}</div>
-            {group.schedule.creator !== userId ? null : (
+            {group.schedule.creator !== userId && isAdmin() ? null : (
               <div className={css.bubble}>
                 <h5>{group.schedule.name}</h5>
                 <a href={`/schedule/${group.schedule.id}`}>
