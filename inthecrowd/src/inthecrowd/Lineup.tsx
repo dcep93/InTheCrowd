@@ -173,7 +173,7 @@ export default class Lineup extends React.Component<
               imgClick: this.imgClick.bind(this),
               slotClick: this.slotClick.bind(this),
               getOpacity: () => 0.4,
-              getSelectedColor: () => "gold",
+              getSelectedColor: () => getColors(this.state).solo,
               getContents: () => "*",
             }}
           />
