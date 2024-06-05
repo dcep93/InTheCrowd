@@ -13,14 +13,12 @@ export default class Lineup extends React.Component<
 > {
   componentDidMount() {
     firebase.connectLineup(this.props.lineupId, (lineup) =>
-      this.setState(
-        lineup.id !== undefined ? lineup : { id: this.props.lineupId }
-      )
+      this.setState(lineup)
     );
   }
 
   updateFirebase() {
-    firebase.updateLineup(
+    return firebase.updateLineup(
       this.props.lineupId,
       Object.assign({}, this.state, {
         id: this.props.lineupId,
@@ -51,11 +49,17 @@ export default class Lineup extends React.Component<
               <div>#{this.props.lineupId}</div>
               <Button
                 onClick={() =>
-                  createGroup(
-                    randomKey({}).toString(),
-                    this.state.name || "group",
-                    this.state
-                  )
+                  Promise.resolve()
+                    .then(() =>
+                      this.state.id !== undefined ? null : this.updateFirebase()
+                    )
+                    .then(() =>
+                      createGroup(
+                        randomKey({}).toString(),
+                        this.state.name || "group",
+                        this.state
+                      )
+                    )
                 }
               >
                 Create Group

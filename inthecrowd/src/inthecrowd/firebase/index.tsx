@@ -52,7 +52,6 @@ export type UsageType = {
 };
 
 function setWrapper(path: string, obj: any, message: string = "") {
-  firebase._set(path, obj);
   const usage: UsageType = {
     userId: getUserId(),
     path,
@@ -60,6 +59,7 @@ function setWrapper(path: string, obj: any, message: string = "") {
     message,
   };
   firebase._push("/usage", usage);
+  return firebase._set(path, obj);
 }
 
 function connectGroup(groupId: string, setState: (group: GroupType) => void) {
@@ -94,7 +94,7 @@ function connectLineup(
 }
 
 function updateLineup(lineupId: string, lineup: LineupType) {
-  setWrapper(
+  return setWrapper(
     `/lineups/${lineupId}`,
     Object.assign({}, lineup, { updated: new Date().getTime() })
   );
