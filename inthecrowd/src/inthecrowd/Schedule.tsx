@@ -143,7 +143,7 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
                   if (!img) return true;
                   if (!this.state.days)
                     Object.assign(this.state as ScheduleType, { days: [] });
-                  this.state.days!.push({ img, slots: {}, width: "100%" });
+                  this.state.days!.push({ img, slots: {} });
                   this.updateFirebase();
                   return true;
                 }}
@@ -171,20 +171,21 @@ class Schedule extends React.Component<{ scheduleId: string }, ScheduleType> {
     const slotCorner = { x: e.pageX, y: e.pageY };
     const target = e.target as HTMLImageElement;
     slotCorner.y -= (target.offsetParent! as HTMLElement).offsetTop;
+    slotCorner.x /= target.width / 100;
+    slotCorner.y /= target.height / 100;
     if (dayIndex !== this.badState?.dayIndex) {
       this.badState = { dayIndex, slotCorner };
       return;
     }
     const day = this.state.days![dayIndex];
     if (!day.slots) day.slots = {};
-    day.slots[randomKey()] = {
+    const slot = {
       x1: this.badState.slotCorner.x,
       y1: this.badState.slotCorner.y,
       x2: slotCorner.x,
       y2: slotCorner.y,
     };
-    day.width = target.width;
-    day.height = target.height;
+    day.slots[randomKey()] = slot;
     this.badState = undefined;
     this.updateFirebase();
   }

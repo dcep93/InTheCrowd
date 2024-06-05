@@ -33,7 +33,7 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
     <div>
       <div
         className={css.hideDay}
-        style={{ width: props.day.width }}
+        style={{ width: "100vW" }}
         onClick={() => {
           update(!hidden);
           resetZoom();
@@ -50,7 +50,7 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
               alt={"missing"}
               src={data}
               onClick={(e) => props.dayProps.imgClick(props.i, e)}
-              style={{ width: props.day.width, height: props.day.height }}
+              style={{ width: "100%" }}
             />
 
             <div>

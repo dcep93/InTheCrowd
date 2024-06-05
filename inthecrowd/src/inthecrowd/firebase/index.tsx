@@ -25,8 +25,6 @@ export type ScheduleType = {
 
 export type DayType = {
   img: string;
-  width: number | string;
-  height?: number;
   slots?: { [slotKey: string]: SlotCoordsType };
 };
 

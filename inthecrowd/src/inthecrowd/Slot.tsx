@@ -1,4 +1,3 @@
-import React from "react";
 import { SlotCoordsType } from "./firebase";
 import css from "./index.module.css";
 
@@ -13,10 +12,10 @@ function Slot(props: {
       <div
         className={css.slotWrapper}
         style={{
-          left: props.slotCoords.x1,
-          top: props.slotCoords.y1,
-          width: props.slotCoords.x2 - props.slotCoords.x1,
-          height: props.slotCoords.y2 - props.slotCoords.y1,
+          left: `${props.slotCoords.x1}%`,
+          top: `${props.slotCoords.y1}%`,
+          width: `${props.slotCoords.x2 - props.slotCoords.x1}%`,
+          height: `${props.slotCoords.y2 - props.slotCoords.y1}%`,
         }}
       >
         <div
