@@ -182,13 +182,14 @@ export default class Lineup extends React.Component<
     }
     const day = this.state.days![dayIndex];
     if (!day.slots) day.slots = {};
-    const slot = {
-      x: this.badState.slotCorner.x,
-      y: this.badState.slotCorner.y,
-      width: slotCorner.x - this.badState.slotCorner.x,
-      height: slotCorner.y - this.badState.slotCorner.y,
+    const width = slotCorner.x - this.badState.slotCorner.x;
+    const height = slotCorner.y - this.badState.slotCorner.y;
+    if (width < 2 || height < 2) return;
+    day.slots[randomKey()] = {
+      ...this.badState.slotCorner,
+      width,
+      height,
     };
-    day.slots[randomKey()] = slot;
     this.badState = undefined;
     this.updateFirebase();
   }
