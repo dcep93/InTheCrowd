@@ -12,7 +12,11 @@ export default class Lineup extends React.Component<
   LineupType
 > {
   componentDidMount() {
-    firebase.connectLineup(this.props.lineupId, this.setState.bind(this));
+    firebase.connectLineup(this.props.lineupId, (lineup) =>
+      this.setState(
+        lineup.id !== undefined ? lineup : { id: this.props.lineupId }
+      )
+    );
   }
 
   updateFirebase() {
@@ -47,7 +51,11 @@ export default class Lineup extends React.Component<
               <div>#{this.props.lineupId}</div>
               <Button
                 onClick={() =>
-                  createGroup(this.state.name || "group", this.state)
+                  createGroup(
+                    randomKey({}).toString(),
+                    this.state.name || "group",
+                    this.state
+                  )
                 }
               >
                 Create Group
@@ -185,7 +193,7 @@ export default class Lineup extends React.Component<
     const width = slotCorner.x - this.badState.slotCorner.x;
     const height = slotCorner.y - this.badState.slotCorner.y;
     if (width < 2 || height < 2) return;
-    day.slots[randomKey()] = {
+    day.slots[randomKey(day.slots)] = {
       ...this.badState.slotCorner,
       width,
       height,

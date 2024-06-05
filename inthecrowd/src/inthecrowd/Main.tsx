@@ -17,8 +17,8 @@ export function mapSort<T>(arr: T[], f: (val: T) => number): T[] {
 }
 
 export function randomKey(
-  range: number = 100000000,
-  disallowed: { [key: string]: any } = {}
+  disallowed: { [key: string]: any },
+  range: number = 100000000
 ) {
   while (true) {
     var rval = Math.floor(Math.random() * range);

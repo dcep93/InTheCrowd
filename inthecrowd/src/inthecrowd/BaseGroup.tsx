@@ -30,6 +30,7 @@ class BaseGroup extends React.Component<
 
   render() {
     if (!this.state) return "loading...";
+    if (!this.state.id) return "missing";
     document.title = this.state.name;
     return (
       <>

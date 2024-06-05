@@ -34,13 +34,17 @@ class NewGroup extends React.Component<{}, MainType> {
                   {lineup.name}#{lineupId}
                 </option>
               ))}
-              {!isAdmin() ? null : <option value={""}>new lineup</option>}
+              {!isAdmin() ? null : (
+                <option value={randomKey(this.state.lineups!)}>
+                  new lineup
+                </option>
+              )}
             </select>
             {!isAdmin() ? null : (
               <button
                 onClick={() =>
                   (window.location.href = `/lineup/${
-                    this.selectRef.current!.value || randomKey()
+                    this.selectRef.current!.value
                   }`)
                 }
               >
@@ -66,13 +70,16 @@ class NewGroup extends React.Component<{}, MainType> {
   createGroup() {
     const lineupId = this.selectRef.current!.value;
     const lineup = this.state.lineups![lineupId];
-    createGroup(this.inputRef.current!.value || lineup.name, lineup);
+    createGroup(
+      randomKey(this.state.groups!).toString(),
+      this.inputRef.current!.value || lineup.name,
+      lineup
+    );
   }
 }
 
-export function createGroup(name: string, lineup: LineupType) {
+export function createGroup(id: string, name: string, lineup: LineupType) {
   const creator = getUserId();
-  const id = randomKey().toString();
   const group = {
     id,
     name,
