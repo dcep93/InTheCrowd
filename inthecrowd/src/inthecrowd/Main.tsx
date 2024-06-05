@@ -2,8 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { warm } from "./CachedImage";
 import Group from "./Group";
+import Lineup from "./Lineup";
 import NewGroup from "./NewGroup";
-import Schedule from "./Schedule";
 import Shared from "./Shared";
 import Usage from "./Usage";
 
@@ -61,9 +61,9 @@ function LoggedInMain() {
         <Switch>
           <Route exact path={`/`} render={() => <NewGroup />} />
           <Route
-            path={`/schedule/:scheduleId`}
+            path={`/lineup/:lineupId`}
             render={(props) => (
-              <Schedule scheduleId={props.match.params.scheduleId} />
+              <Lineup lineupId={props.match.params.lineupId} />
             )}
           />
           <Route

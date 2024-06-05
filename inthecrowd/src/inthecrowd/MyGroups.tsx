@@ -14,7 +14,7 @@ class MyGroups extends React.Component<{ main: MainType }> {
             (group) =>
               true || group.creator === userId || (group.users || {})[userId]
           ),
-          (group) => group.schedule.updated
+          (group) => group.lineup.updated
         ).map((group) => (
           <div key={group.id} className={css.bubble}>
             <div>
@@ -27,26 +27,26 @@ class MyGroups extends React.Component<{ main: MainType }> {
               <a href={`/group/${group.id}`}>group #{group.id}</a>
             </div>
             <div>by {group.creator}</div>
-            {group.schedule.creator !== userId || !isAdmin() ? null : (
+            {group.lineup.creator !== userId || !isAdmin() ? null : (
               <div className={css.bubble}>
-                <h5>{group.schedule.name}</h5>
-                <a href={`/schedule/${group.schedule.id}`}>
-                  schedule #{group.schedule.id}
+                <h5>{group.lineup.name}</h5>
+                <a href={`/lineup/${group.lineup.id}`}>
+                  lineup #{group.lineup.id}
                 </a>
                 <div>
                   <Button
                     disabled={
-                      (this.props.main.schedules || {})[group.schedule.id]
-                        .updated === group.schedule.updated
+                      (this.props.main.lineups || {})[group.lineup.id]
+                        .updated === group.lineup.updated
                     }
                     onClick={() =>
-                      firebase.setGroupSchedule(
+                      firebase.setGroupLineup(
                         group.id,
-                        (this.props.main.schedules || {})[group.schedule.id]
+                        (this.props.main.lineups || {})[group.lineup.id]
                       )
                     }
                   >
-                    Update Days From Schedule
+                    Update Days From Lineup
                   </Button>
                 </div>
               </div>

@@ -1,7 +1,9 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { Container, Modal, Nav, Navbar } from "react-bootstrap";
 import { getUserId, logout } from "./Main";
 import recorded_sha from "./recorded_sha";
+
+console.log(recorded_sha);
 
 function LNav(props: { userId?: string; extra?: ReactElement }) {
   const [show, update] = useState(false);
@@ -93,27 +95,27 @@ function help() {
       </Modal.Header>
       <Modal.Body>
         <div>
-          On the homepage, you can select an existing schedule and give your
-          group a name. Then, send that link to your festival group. You cannot
+          On the homepage, you can select an existing lineup and give your group
+          a name. Then, send that link to your festival group. You cannot
           disallow people from joining groups.
         </div>
       </Modal.Body>
       <Modal.Header></Modal.Header>
       <Modal.Header>
-        <h3>Creating a Schedule</h3>
+        <h3>Creating a Lineup</h3>
       </Modal.Header>
       <Modal.Body>
         <div>
-          Hopefully, you'll never have to create a schedule yourself. If you
-          need to do so, first you need to define the images of the daily
-          schedules. Paste the images in order in the Day Image URL section.
-          Then you need to define time slots. Click the desired upper left
-          corner, then the lower right corner. Clicking an existing slot will
-          delete it. Deleting an image url will delete all its slots and cannot
-          be recovered. Creating a group from a schedule will give the group the
-          same name as the schedule. If you want a different group name, go back
-          to the home page, use the schedule you made, and give your group a
-          custom name.
+          Only admins can create lineups. Only daniel is an admin. Hopefully,
+          you'll never have to create a lineup yourself. If you need to do so,
+          first you need to define the images of the daily schedules. Paste the
+          images in order in the Day Image URL section. Then you need to define
+          time slots. Click the desired upper left corner, then the lower right
+          corner. Clicking an existing slot will delete it. Deleting an image
+          url will delete all its slots and cannot be recovered. Creating a
+          group from a lineup will give the group the same name as the lineup.
+          If you want a different group name, you can edit it from to the home
+          page.
         </div>
       </Modal.Body>
       <Modal.Header></Modal.Header>

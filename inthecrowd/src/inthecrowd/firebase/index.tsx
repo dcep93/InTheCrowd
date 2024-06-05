@@ -3,18 +3,18 @@ import firebase from "./firebase";
 
 export type MainType = {
   groups?: { [groupId: string]: GroupType };
-  schedules?: { [scheduleId: string]: ScheduleType };
+  lineups?: { [lineupId: string]: LineupType };
 };
 
 export type GroupType = {
   id: string;
   name: string;
   creator: string;
-  schedule: ScheduleType;
+  lineup: LineupType;
   users?: { [userId: string]: UserType };
 };
 
-export type ScheduleType = {
+export type LineupType = {
   id: string;
   name: string;
   creator: string;
@@ -69,8 +69,8 @@ function connectMain(setState: (main: MainType) => void) {
   firebase._connect("/", (val) => setState(val || {}));
 }
 
-function setGroupSchedule(groupId: string, schedule: ScheduleType) {
-  setWrapper(`/groups/${groupId}/schedule`, schedule);
+function setGroupLineup(groupId: string, lineup: LineupType) {
+  setWrapper(`/groups/${groupId}/lineup`, lineup);
 }
 
 function setGroupName(groupId: string, name: string) {
@@ -81,17 +81,17 @@ function createGroup(groupId: string, group: GroupType) {
   setWrapper(`/groups/${groupId}`, group, `create`);
 }
 
-function connectSchedule(
-  scheduleId: string,
-  setState: (state: ScheduleType) => void
+function connectLineup(
+  lineupId: string,
+  setState: (state: LineupType) => void
 ) {
-  firebase._connect(`/schedules/${scheduleId}`, (val) => setState(val || {}));
+  firebase._connect(`/lineups/${lineupId}`, (val) => setState(val || {}));
 }
 
-function updateSchedule(scheduleId: string, schedule: ScheduleType) {
+function updateLineup(lineupId: string, lineup: LineupType) {
   setWrapper(
-    `/schedules/${scheduleId}`,
-    Object.assign({}, schedule, { updated: new Date().getTime() })
+    `/lineups/${lineupId}`,
+    Object.assign({}, lineup, { updated: new Date().getTime() })
   );
 }
 
@@ -103,12 +103,12 @@ const ex = {
   connectGroup,
   updateGroupUser,
   connectMain,
-  setGroupSchedule,
+  setGroupLineup,
   setGroupName,
   connectUsage,
   createGroup,
-  updateSchedule,
-  connectSchedule,
+  updateLineup,
+  connectLineup,
 };
 
 export default ex;

@@ -11,7 +11,7 @@ import {
 } from "firebase/database";
 import React from "react";
 
-const BASE = "/inthecrowd";
+const BASE = "/inthecrowd/tmp";
 
 const project = "firebase-320421";
 

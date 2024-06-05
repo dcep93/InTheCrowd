@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import LNav from "./LNav";
 import { getUserId, isAdmin, mapSort, randomKey } from "./Main";
 import MyGroups from "./MyGroups";
-import firebase, { MainType, ScheduleType } from "./firebase";
+import firebase, { LineupType, MainType } from "./firebase";
 import css from "./index.module.css";
 
 class NewGroup extends React.Component<{}, MainType> {
@@ -22,29 +22,29 @@ class NewGroup extends React.Component<{}, MainType> {
           <div className={css.bubble}>
             <select ref={this.selectRef} onChange={() => this.forceUpdate()}>
               {mapSort(
-                Object.entries(this.state.schedules || {}).map(
-                  ([scheduleId, schedule]) => ({
-                    scheduleId,
-                    schedule,
+                Object.entries(this.state.lineups || {}).map(
+                  ([lineupId, lineup]) => ({
+                    lineupId,
+                    lineup,
                   })
                 ),
-                (obj) => obj.schedule.updated
-              ).map(({ scheduleId, schedule }) => (
-                <option key={scheduleId} value={scheduleId}>
-                  {schedule.name}#{scheduleId}
+                (obj) => obj.lineup.updated
+              ).map(({ lineupId, lineup }) => (
+                <option key={lineupId} value={lineupId}>
+                  {lineup.name}#{lineupId}
                 </option>
               ))}
-              {!isAdmin() ? null : <option value={""}>new schedule</option>}
+              {!isAdmin() ? null : <option value={""}>new lineup</option>}
             </select>
             {!isAdmin() ? null : (
               <button
                 onClick={() =>
-                  (window.location.href = `/schedule/${
+                  (window.location.href = `/lineup/${
                     this.selectRef.current!.value || randomKey()
                   }`)
                 }
               >
-                Edit Schedule
+                Edit Lineup
               </button>
             )}
             <div>
@@ -64,20 +64,20 @@ class NewGroup extends React.Component<{}, MainType> {
   }
 
   createGroup() {
-    const scheduleId = this.selectRef.current!.value;
-    const schedule = this.state.schedules![scheduleId];
-    createGroup(this.inputRef.current!.value || schedule.name, schedule);
+    const lineupId = this.selectRef.current!.value;
+    const lineup = this.state.lineups![lineupId];
+    createGroup(this.inputRef.current!.value || lineup.name, lineup);
   }
 }
 
-export function createGroup(name: string, schedule: ScheduleType) {
+export function createGroup(name: string, lineup: LineupType) {
   const creator = getUserId();
   const id = randomKey().toString();
   const group = {
     id,
     name,
     creator,
-    schedule,
+    lineup,
     users: {},
   };
   firebase.createGroup(id, group);

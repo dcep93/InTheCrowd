@@ -1,10 +1,10 @@
 import React, { ReactElement, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import Lineup from "./Lineup";
+import Days from "./Days";
 import { getUserId } from "./Main";
 import firebase, {
   GroupType,
-  ScheduleType,
+  LineupType,
   UserSlotType,
   UserType,
 } from "./firebase";
@@ -33,15 +33,15 @@ class BaseGroup extends React.Component<
     document.title = this.state.name;
     return (
       <>
-        <Lineup
+        <Days
           userId={this.props.userId}
-          days={this.state.schedule.days || []}
+          days={this.state.lineup.days || []}
           dayProps={{
             imgClick: () => null,
             slotClick: this.slotClick.bind(this),
             getOpacity: this.getOpacity.bind(this),
             getSelectedColor: (slotKey) =>
-              this.getSelectedColor(slotKey, this.state.schedule),
+              this.getSelectedColor(slotKey, this.state.lineup),
             getContents: this.getContents.bind(this),
           }}
         />
@@ -152,18 +152,18 @@ class BaseGroup extends React.Component<
       .reduce((a, b) => a + b, 0);
   }
 
-  getSelectedColor(slotKey: string, schedule: ScheduleType): string {
+  getSelectedColor(slotKey: string, lineup: LineupType): string {
     const mySelected = this.getMySelected(slotKey);
     const totalSelected = this.getTotalSelected(slotKey);
     if (mySelected > 0) {
       if (totalSelected > mySelected) {
-        return schedule.colors?.group || "blue";
+        return lineup.colors?.group || "blue";
       } else {
-        return schedule.colors?.solo || "black";
+        return lineup.colors?.solo || "black";
       }
     } else {
       if (totalSelected > 0) {
-        return schedule.colors?.others || "red";
+        return lineup.colors?.others || "red";
       } else {
         return "";
       }
@@ -178,7 +178,7 @@ class BaseGroup extends React.Component<
         contents={`${stars}/${this.getTotalSelected(slotKey)}`}
         location={this.location(slotKey)}
         modalContents={this.getModalContents(slotKey)}
-        clickableColor={this.state.schedule.colors?.clickable || "blue"}
+        clickableColor={this.state.lineup.colors?.clickable || "blue"}
       />
     );
   }
