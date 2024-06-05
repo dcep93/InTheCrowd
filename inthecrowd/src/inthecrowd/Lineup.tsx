@@ -183,10 +183,10 @@ export default class Lineup extends React.Component<
     const day = this.state.days![dayIndex];
     if (!day.slots) day.slots = {};
     const slot = {
-      x1: this.badState.slotCorner.x,
-      y1: this.badState.slotCorner.y,
-      x2: slotCorner.x,
-      y2: slotCorner.y,
+      x: this.badState.slotCorner.x,
+      y: this.badState.slotCorner.y,
+      width: slotCorner.x - this.badState.slotCorner.x,
+      height: slotCorner.y - this.badState.slotCorner.y,
     };
     day.slots[randomKey()] = slot;
     this.badState = undefined;

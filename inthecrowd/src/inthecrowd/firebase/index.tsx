@@ -28,7 +28,12 @@ export type DayType = {
   slots?: { [slotKey: string]: SlotCoordsType };
 };
 
-export type SlotCoordsType = { x1: number; y1: number; x2: number; y2: number };
+export type SlotCoordsType = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
 
 export type UserType = {
   [slotKey: string]: UserSlotType;
