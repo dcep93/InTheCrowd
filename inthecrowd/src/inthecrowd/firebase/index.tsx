@@ -14,13 +14,20 @@ export type GroupType = {
   users?: { [userId: string]: UserType };
 };
 
+export type ColorsType = {
+  solo: string;
+  group: string;
+  others: string;
+  clickable: string;
+};
+
 export type LineupType = {
   id: string;
   name: string;
   creator: string;
   updated: number;
   days?: DayType[];
-  colors?: { solo: string; group: string; others: string; clickable: string };
+  colors?: ColorsType;
 };
 
 export type DayType = {

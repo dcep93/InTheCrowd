@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import Days from "./Days";
 import { getUserId } from "./Main";
 import firebase, {
+  ColorsType,
   GroupType,
   LineupType,
   UserSlotType,
@@ -158,13 +159,13 @@ class BaseGroup extends React.Component<
     const totalSelected = this.getTotalSelected(slotKey);
     if (mySelected > 0) {
       if (totalSelected > mySelected) {
-        return lineup.colors?.group || "blue";
+        return getColors(lineup).group;
       } else {
-        return lineup.colors?.solo || "black";
+        return getColors(lineup).solo;
       }
     } else {
       if (totalSelected > 0) {
-        return lineup.colors?.others || "red";
+        return getColors(lineup).others;
       } else {
         return "";
       }
@@ -179,7 +180,7 @@ class BaseGroup extends React.Component<
         contents={`${stars}/${this.getTotalSelected(slotKey)}`}
         location={this.location(slotKey)}
         modalContents={this.getModalContents(slotKey)}
-        clickableColor={this.state.lineup.colors?.clickable || "blue"}
+        clickableColor={getColors(this.state.lineup).clickable}
       />
     );
   }
@@ -243,3 +244,15 @@ function GetContents(props: {
 }
 
 export default BaseGroup;
+
+export function getColors(lineup: LineupType): ColorsType {
+  return Object.assign(
+    {
+      solo: "black",
+      group: "blue",
+      others: "red",
+      clickable: "blue",
+    },
+    lineup.colors
+  );
+}

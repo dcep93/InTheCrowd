@@ -1,5 +1,6 @@
 import React, { RefObject } from "react";
 import { Button } from "react-bootstrap";
+import { getColors } from "./BaseGroup";
 import Days from "./Days";
 import LNav from "./LNav";
 import { getUserId, randomKey } from "./Main";
@@ -72,7 +73,7 @@ export default class Lineup extends React.Component<
                   <label>solo</label>
                   {"      "}
                   <TextEditor
-                    defaultValue={this.state.colors?.solo || "black"}
+                    defaultValue={getColors(this.state).solo}
                     submit={(solo) => {
                       Object.assign(this.state as LineupType, {
                         colors: Object.assign(this.state.colors || {}, {
@@ -88,7 +89,7 @@ export default class Lineup extends React.Component<
                   <label>group</label>
                   {"     "}
                   <TextEditor
-                    defaultValue={this.state.colors?.group || "blue"}
+                    defaultValue={getColors(this.state).group}
                     submit={(group) => {
                       Object.assign(this.state as LineupType, {
                         colors: Object.assign(this.state.colors || {}, {
@@ -104,7 +105,7 @@ export default class Lineup extends React.Component<
                   <label>others</label>
                   {"    "}
                   <TextEditor
-                    defaultValue={this.state.colors?.others || "red"}
+                    defaultValue={getColors(this.state).others}
                     submit={(others) => {
                       Object.assign(this.state as LineupType, {
                         colors: Object.assign(this.state.colors || {}, {
@@ -119,7 +120,7 @@ export default class Lineup extends React.Component<
                 <div>
                   <label>clickable</label>{" "}
                   <TextEditor
-                    defaultValue={this.state.colors?.clickable || "blue"}
+                    defaultValue={getColors(this.state).clickable}
                     submit={(clickable) => {
                       Object.assign(this.state as LineupType, {
                         colors: Object.assign(this.state.colors || {}, {
