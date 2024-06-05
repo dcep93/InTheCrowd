@@ -181,28 +181,25 @@ export default class Lineup extends React.Component<
     );
   }
 
-  badState?: { dayIndex: number; slotCorner: { x: number; y: number } };
-  imgClick(dayIndex: number, e: React.MouseEvent) {
+  imgClick(prev: ImgClickType, dayIndex: number, e: React.MouseEvent) {
     const slotCorner = { x: e.pageX, y: e.pageY };
     const target = e.target as HTMLImageElement;
     slotCorner.y -= (target.offsetParent! as HTMLElement).offsetTop;
     slotCorner.x /= target.width / 100;
     slotCorner.y /= target.height / 100;
-    if (dayIndex !== this.badState?.dayIndex) {
-      this.badState = { dayIndex, slotCorner };
-      return;
+    if (dayIndex !== prev?.dayIndex) {
+      return { dayIndex, slotCorner };
     }
     const day = this.state.days![dayIndex];
     if (!day.slots) day.slots = {};
-    const width = slotCorner.x - this.badState.slotCorner.x;
-    const height = slotCorner.y - this.badState.slotCorner.y;
-    if (width < 2 || height < 2) return;
+    const width = slotCorner.x - prev.slotCorner.x;
+    const height = slotCorner.y - prev.slotCorner.y;
+    if (width < 2 || height < 2) return prev;
     day.slots[randomKey(day.slots)] = {
-      ...this.badState.slotCorner,
+      ...prev.slotCorner,
       width,
       height,
     };
-    this.badState = undefined;
     this.updateFirebase();
   }
 
@@ -246,3 +243,7 @@ class TextEditor extends React.Component<PropsType> {
     );
   }
 }
+
+type ImgClickType =
+  | undefined
+  | { dayIndex: number; slotCorner: { x: number; y: number } };

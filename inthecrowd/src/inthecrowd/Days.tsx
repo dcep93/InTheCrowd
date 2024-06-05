@@ -4,17 +4,17 @@ import Slot from "./Slot";
 import { DayType } from "./firebase";
 import css from "./index.module.css";
 
-type DayProps = {
+type DayProps<T> = {
   getOpacity: (slotKey: string) => number;
   getSelectedColor: (slotKey: string) => string;
   getContents: (slotKey: string) => any;
-  imgClick: (dayIndex: number, e: React.MouseEvent) => void;
+  imgClick: (t: T, dayIndex: number, e: React.MouseEvent) => T;
   slotClick: (dayIndex: number, slotKey: string) => void;
 };
-export default function Days(props: {
+export default function Days<T>(props: {
   userId: string;
   days: DayType[];
-  dayProps: DayProps;
+  dayProps: DayProps<T>;
 }) {
   return (
     <div>
@@ -27,7 +27,8 @@ export default function Days(props: {
   );
 }
 
-function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
+function Day<T>(props: { i: number; day: DayType; dayProps: DayProps<T> }) {
+  const [prev, updatePrev] = useState<T>(undefined as T);
   const [hidden, update] = useState(false);
   return (
     <div>
@@ -49,7 +50,9 @@ function Day(props: { i: number; day: DayType; dayProps: DayProps }) {
               className={css.img}
               alt={"missing"}
               src={data}
-              onClick={(e) => props.dayProps.imgClick(props.i, e)}
+              onClick={(e) =>
+                updatePrev(props.dayProps.imgClick(prev, props.i, e))
+              }
               style={{ width: "100%" }}
             />
 
