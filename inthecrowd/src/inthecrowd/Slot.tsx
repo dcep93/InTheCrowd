@@ -26,7 +26,9 @@ function Slot(props: {
           }}
         ></div>
 
-        <div className={css.slotCount} style={{fontSize: "0.5em"}}>{props.getContents()}</div>
+        <div className={css.slotCount} style={{ fontSize: "1.5vW" }}>
+          {props.getContents()}
+        </div>
       </div>
     </>
   );
