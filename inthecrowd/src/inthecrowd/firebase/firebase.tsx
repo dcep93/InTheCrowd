@@ -1,3 +1,4 @@
+import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app"; // no compat for new SDK
 import {
   Database,
@@ -38,6 +39,7 @@ if (!window.firebaseinitialized) {
   window.firebaseinitialized = true;
   var app = initializeApp(config);
   database = getDatabase(app);
+  getAnalytics(app);
 }
 
 function __ref(path: string) {
